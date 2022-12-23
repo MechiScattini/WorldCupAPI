@@ -91,18 +91,6 @@ public class SeleccionServiceTest {
 		
 	}
 	
-	/*@Test
-	public void getSeleccionExceptionTest() {
-		Long seleccionId = Long.valueOf(1);
-		Mockito.doThrow(new EntityNotFoundException()).when(seleccionRepository).findById(seleccionId);
-		
-		EntityNotFoundException thrown = assertThrows(EntityNotFoundException.class,
-				() -> seleccionService.getSeleccion(seleccionId));
-		
-		assertTrue(thrown.getMessage().contentEquals("No se encontró la seleccion con id: " + 1));
-	}
-	*/
-	
 	@Test 
 	public void createSeleccionCon11JugadoresTest() {
 		// Arrange
@@ -138,6 +126,8 @@ public class SeleccionServiceTest {
 		String result = seleccionService.createSeleccionConJugadores(seleccion1);
 		
 		// Assert
+		Mockito.verify(jugadorService,Mockito.times(11)).createJugador(Mockito.any());
+		Mockito.verify(jugadorService,Mockito.times(11)).setSeleccionJugador(Mockito.any(),Mockito.any());
 		Assertions.assertEquals(result,"La seleccion: " + seleccion1.getPais() +" fue creada exitosamente");
 	}
 	
@@ -154,6 +144,8 @@ public class SeleccionServiceTest {
 		String result = seleccionService.createSeleccionConJugadores(seleccion1);
 		
 		// Assert
+		Mockito.verify(jugadorService,Mockito.times(0)).createJugador(Mockito.any());
+		Mockito.verify(jugadorService,Mockito.times(0)).setSeleccionJugador(Mockito.any(),Mockito.any());
 		Assertions.assertEquals(result,"Error al crear la seleccion"+ seleccion1.getPais() +", la seleccion debe tener entre 11 y 26 jugadores");
 	}
 	
