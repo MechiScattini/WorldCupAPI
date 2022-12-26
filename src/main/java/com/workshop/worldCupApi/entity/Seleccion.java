@@ -11,10 +11,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-//import javax.validation.Valid;
-//import javax.validation.constraints.NotEmpty;
-//import javax.validation.constraints.NotNull;
-//import javax.validation.constraints.Size;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -22,7 +21,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-//@NoArgsConstructor
 public class Seleccion {
 
 	/** Entidad que representa una seleccion */
@@ -32,21 +30,21 @@ public class Seleccion {
 	@Column(unique=true,nullable = false)
 	private Long id;
 	
-	//@NotEmpty(message = "Pais no puede estar vacío")
-	//@Size(min = 1, max = 30, message = "Pais debe tener entre 1 y 30 caracteres")
+	@NotEmpty(message = "Pais no puede estar vacío")
+	@Size(min = 1, max = 30, message = "Pais debe tener entre 1 y 30 caracteres")
 	@Column(unique=true)
 	private String pais;
 	
-	//@NotEmpty(message = "Color de camiseta titular no puede estar vacío")
-	//@Size(min = 1, max = 30, message = "Color de camiseta titular debe tener entre 1 y 30 caracteres")
+	@NotEmpty(message = "Color de camiseta titular no puede estar vacío")
+	@Size(min = 1, max = 30, message = "Color de camiseta titular debe tener entre 1 y 30 caracteres")
 	private String colorCamisetaTitular;
 	
-	//@NotNull(message = "Color de camiseta suplente cannot be empty")
-	//@Size(min = 1, max = 30, message = "Color de camiseta suplente debe tener entre 1 y 30 caracteres")
+	@NotNull(message = "Color de camiseta suplente cannot be empty")
+	@Size(min = 1, max = 30, message = "Color de camiseta suplente debe tener entre 1 y 30 caracteres")
 	private String colorCamisetaSuplente;
 	
 	@OneToMany(mappedBy="seleccion")
-	//@Size(min = 11, max = 26, message = "Seleccion debe tener entre 11 y 26 jugadores")
+	@Size(min = 11, max = 26, message = "Seleccion debe tener entre 11 y 26 jugadores")
 	private Set<Jugador> jugadores = new HashSet<>();
 	
 	@ManyToMany(mappedBy = "selecciones")
@@ -85,10 +83,10 @@ public class Seleccion {
 	
 	
 	public Seleccion(
-			/*@NotEmpty(message = "Pais no puede estar vacío") @Size(min = 1, max = 30, message = "Pais debe tener entre 1 y 30 caracteres")*/ String pais,
-			/*@NotEmpty(message = "Color de camiseta titular no puede estar vacío") @Size(min = 1, max = 30, message = "Color de camiseta titular debe tener entre 1 y 30 caracteres")*/ String colorCamisetaTitular,
-			/*@NotNull(message = "Color de camiseta suplente cannot be empty") @Size(min = 1, max = 30, message = "Color de camiseta suplente debe tener entre 1 y 30 caracteres")*/ String colorCamisetaSuplente,
-			/*@Size(min = 11, max = 26, message = "Seleccion debe tener entre 11 y 26 jugadores")*/ Set<Jugador> jugadores) {
+			@NotEmpty(message = "Pais no puede estar vacío") @Size(min = 1, max = 30, message = "Pais debe tener entre 1 y 30 caracteres") String pais,
+			@NotEmpty(message = "Color de camiseta titular no puede estar vacío") @Size(min = 1, max = 30, message = "Color de camiseta titular debe tener entre 1 y 30 caracteres") String colorCamisetaTitular,
+			@NotNull(message = "Color de camiseta suplente cannot be empty") @Size(min = 1, max = 30, message = "Color de camiseta suplente debe tener entre 1 y 30 caracteres") String colorCamisetaSuplente,
+			@Size(min = 11, max = 26, message = "Seleccion debe tener entre 11 y 26 jugadores") Set<Jugador> jugadores) {
 		super();
 		this.pais = pais;
 		this.colorCamisetaTitular = colorCamisetaTitular;

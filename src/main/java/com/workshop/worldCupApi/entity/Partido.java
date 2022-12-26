@@ -13,9 +13,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-//import javax.validation.Valid;
-//import javax.validation.constraints.Min;
-//import javax.validation.constraints.Size;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -28,16 +28,16 @@ public class Partido {
 	@Column(unique=true,nullable = false)
 	private Long id;
 	
-	//@Min(value = 0, message = "La cantidad de goles no puede ser menor que 0")
+	@Min(value = 0, message = "La cantidad de goles no puede ser menor que 0")
 	private Integer cantGolesS1;
 	
-	//@Min(value = 0, message = "La cantidad de goles no puede ser menor que 0")
+	@Min(value = 0, message = "La cantidad de goles no puede ser menor que 0")
 	private Integer cantGolesS2;
 	
-	//@NotNull
+	@NotNull
 	private Date fecha;
 	
-	//@Size(min = 1, max = 40, message = "Resultado debe tener entre 1 y 40 caracteres")
+	@Size(min = 1, max = 40, message = "Resultado debe tener entre 1 y 40 caracteres")
 	private String resultado;
 	
 	@ManyToMany(fetch = FetchType.LAZY)
@@ -45,9 +45,9 @@ public class Partido {
 			name="partido_selecciones",
 			joinColumns = @JoinColumn(name = "partido_id"),
 			inverseJoinColumns = @JoinColumn(name = "seleccion_id"))
-	//@Size(min=2, max=2)
+	@Size(min=2, max=2)
 	@JsonIgnore
-	private Set<Seleccion> selecciones = new HashSet<Seleccion>(); 
+	private Set<Seleccion> selecciones = new HashSet<>(); 
 	
 	public Partido() {}
 	
