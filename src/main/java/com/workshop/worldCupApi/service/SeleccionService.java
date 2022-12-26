@@ -9,7 +9,6 @@ import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
 import javax.persistence.EntityNotFoundException;
-//import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -215,7 +214,6 @@ public class SeleccionService {
 			seleccionRepository.save(seleccion);
 			return true;
 		} catch (Exception e) {
-			System.out.print(e);
 			return false;
 		}
 	}
@@ -229,7 +227,6 @@ public class SeleccionService {
 			seleccionRepository.save(seleccion);
 			return true;
 		} catch (Exception e) {
-			System.out.print(e);
 			return false;
 		}
 	}
@@ -243,7 +240,6 @@ public class SeleccionService {
 			seleccionRepository.save(seleccion);
 			return true;
 		} catch (Exception e) {
-			System.out.print(e);
 			return false;
 		}
 	}
@@ -255,7 +251,6 @@ public class SeleccionService {
 			seleccionRepository.save(seleccion);
 			return true;
 		} catch (Exception e) {
-			System.out.print(e);
 			return false;
 		}	
 	}
@@ -267,14 +262,13 @@ public class SeleccionService {
 			seleccionRepository.save(seleccion);
 			return true;
 		} catch (Exception e) {
-			System.out.print(e);
 			return false;
 		}	
 	}
 	
 	public List<Seleccion> generate32Selecciones() throws Exception{
 		
-		List<Seleccion> selecciones = new ArrayList<Seleccion>();
+		List<Seleccion> selecciones = new ArrayList<>();
 		
 		// crea la lista de jugadores de Qatar
 		Set<Jugador> jugadoresQatar = this.generateJugadores("Qatar");
@@ -325,244 +319,244 @@ public class SeleccionService {
 		// crea la lista de jugadores de USA		
 		Set<Jugador> jugadoresUSA = this.generateJugadores("USA");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion USA = new Seleccion("USA", "Blanca", "No se", jugadoresUSA);		
-		this.createSeleccionConJugadores(USA);		
+		Seleccion usa = new Seleccion("USA", "Blanca", "No se", jugadoresUSA);		
+		this.createSeleccionConJugadores(usa);		
 		// agrega la seleccion a la lista de selecciones
-		selecciones.add(USA);
+		selecciones.add(usa);
 		
 		
 		// crea la lista de jugadores de Iran		
 		Set<Jugador> jugadoresIran = this.generateJugadores("Iran");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion Iran = new Seleccion("Iran", "Roja", "No se", jugadoresIran);		
-		this.createSeleccionConJugadores(Iran);		
+		Seleccion iran = new Seleccion("Iran", "Roja", "No se", jugadoresIran);		
+		this.createSeleccionConJugadores(iran);		
 		// agrega la seleccion a la lista de selecciones
-		selecciones.add(Iran);
+		selecciones.add(iran);
 		
 		
 		// crea la lista de jugadores de Wales		
 		Set<Jugador> jugadoresWales = this.generateJugadores("Wales");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion Wales = new Seleccion("Wales", "Roja", "No se", jugadoresWales);		
-		this.createSeleccionConJugadores(Wales);		
+		Seleccion wales = new Seleccion("Wales", "Roja", "No se", jugadoresWales);		
+		this.createSeleccionConJugadores(wales);		
 		// agrega la seleccion a la lista de selecciones
-		selecciones.add(Wales);
+		selecciones.add(wales);
 		
 		
 		// crea la lista de jugadores de Argentina		
 		Set<Jugador> jugadoresArgentina = this.generateJugadores("Argentina");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion Argentina = new Seleccion("Argentina", "Celeste y blanca", "violeta", jugadoresArgentina);		
-		this.createSeleccionConJugadores(Argentina);		
+		Seleccion argentina = new Seleccion("Argentina", "Celeste y blanca", "violeta", jugadoresArgentina);		
+		this.createSeleccionConJugadores(argentina);		
 		// agrega la seleccion a la lista de selecciones
-		selecciones.add(Argentina);
+		selecciones.add(argentina);
 		
 		
 		// crea la lista de jugadores de Mexico		
 		Set<Jugador> jugadoresMexico = this.generateJugadores("Mexico");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion Mexico = new Seleccion("Mexico", "Verde", "no se", jugadoresMexico);		
-		this.createSeleccionConJugadores(Mexico);		
+		Seleccion mexico = new Seleccion("Mexico", "Verde", "no se", jugadoresMexico);		
+		this.createSeleccionConJugadores(mexico);		
 		// agrega la seleccion a la lista de selecciones
-		selecciones.add(Mexico);
+		selecciones.add(mexico);
 		
 		
 		// crea la lista de jugadores de Poland		
 		Set<Jugador> jugadoresPoland = this.generateJugadores("Poland");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion Poland = new Seleccion("Poland", "Blanca", "no se", jugadoresPoland);		
-		this.createSeleccionConJugadores(Poland);		
+		Seleccion poland = new Seleccion("Poland", "Blanca", "no se", jugadoresPoland);		
+		this.createSeleccionConJugadores(poland);		
 		// agrega la seleccion a la lista de selecciones
-		selecciones.add(Poland);
+		selecciones.add(poland);
 		
 		
 		// crea la lista de jugadores de Arabia Saudi		
 		Set<Jugador> jugadoresSaudiArabia = this.generateJugadores("Saudi Arabia");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion SaudiArabia = new Seleccion("Saudi Arabia", "Blanca", "no se", jugadoresSaudiArabia);		
-		this.createSeleccionConJugadores(SaudiArabia);		
+		Seleccion saudiArabia = new Seleccion("Saudi Arabia", "Blanca", "no se", jugadoresSaudiArabia);		
+		this.createSeleccionConJugadores(saudiArabia);		
 		// agrega la seleccion a la lista de selecciones
-		selecciones.add(SaudiArabia);
+		selecciones.add(saudiArabia);
 		
 		
 		// crea la lista de jugadores de France		
 		Set<Jugador> jugadoresFrance = this.generateJugadores("France");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion France = new Seleccion("France", "Azul", "no se", jugadoresFrance);		
-		this.createSeleccionConJugadores(France);		
+		Seleccion france = new Seleccion("France", "Azul", "no se", jugadoresFrance);		
+		this.createSeleccionConJugadores(france);		
 		// agrega la seleccion a la lista de selecciones
-		selecciones.add(France);
+		selecciones.add(france);
 		
 		
 		// crea la lista de jugadores de Denmark		
 		Set<Jugador> jugadoresDenmark = this.generateJugadores("Denmark");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion Denmark = new Seleccion("Denmark", "Roja", "no se", jugadoresDenmark);		
-		this.createSeleccionConJugadores(Denmark);		
+		Seleccion denmark = new Seleccion("Denmark", "Roja", "no se", jugadoresDenmark);		
+		this.createSeleccionConJugadores(denmark);		
 		// agrega la seleccion a la lista de selecciones
-		selecciones.add(Denmark);
+		selecciones.add(denmark);
 		
 		
 		// crea la lista de jugadores de Tunisia		
 		Set<Jugador> jugadoresTunisia = this.generateJugadores("Tunisia");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion Tunisia = new Seleccion("Tunisia", "Roja", "no se", jugadoresTunisia);		
-		this.createSeleccionConJugadores(Tunisia);		
+		Seleccion tunisia = new Seleccion("Tunisia", "Roja", "no se", jugadoresTunisia);		
+		this.createSeleccionConJugadores(tunisia);		
 		// agrega la seleccion a la lista de selecciones
-		selecciones.add(Tunisia);
+		selecciones.add(tunisia);
 		
 		
 		// crea la lista de jugadores de Australia		
 		Set<Jugador> jugadoresAustralia = this.generateJugadores("Australia");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion Australia = new Seleccion("Australia", "Amarilla", "no se", jugadoresAustralia);		
-		this.createSeleccionConJugadores(Australia);		
+		Seleccion australia = new Seleccion("Australia", "Amarilla", "no se", jugadoresAustralia);		
+		this.createSeleccionConJugadores(australia);		
 		// agrega la seleccion a la lista de selecciones
-		selecciones.add(Australia);
+		selecciones.add(australia);
 		
 		
 		// crea la lista de jugadores de Spain		
 		Set<Jugador> jugadoresSpain = this.generateJugadores("Spain");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion Spain = new Seleccion("Spain", "Roja", "no se", jugadoresSpain);		
-		this.createSeleccionConJugadores(Spain);		
+		Seleccion spain = new Seleccion("Spain", "Roja", "no se", jugadoresSpain);		
+		this.createSeleccionConJugadores(spain);		
 		// agrega la seleccion a la lista de selecciones
-		selecciones.add(Spain);
+		selecciones.add(spain);
 		
 		
 		// crea la lista de jugadores de Germany		
 		Set<Jugador> jugadoresGermany = this.generateJugadores("Germany");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion Germany = new Seleccion("Germany", "Blanca y negra", "no se", jugadoresGermany);		
-		this.createSeleccionConJugadores(Germany);		
+		Seleccion germany = new Seleccion("Germany", "Blanca y negra", "no se", jugadoresGermany);		
+		this.createSeleccionConJugadores(germany);		
 		// agrega la seleccion a la lista de selecciones
-		selecciones.add(Germany);
+		selecciones.add(germany);
 		
 		
 		// crea la lista de jugadores de Japan		
 		Set<Jugador> jugadoresJapan = this.generateJugadores("Japan");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion Japan = new Seleccion("Japan", "Azul", "no se", jugadoresJapan);		
-		this.createSeleccionConJugadores(Japan);		
+		Seleccion japan = new Seleccion("Japan", "Azul", "no se", jugadoresJapan);		
+		this.createSeleccionConJugadores(japan);		
 		// agrega la seleccion a la lista de selecciones
-		selecciones.add(Japan);
+		selecciones.add(japan);
 		
 		
 		// crea la lista de jugadores de Costa Rica		
 		Set<Jugador> jugadoresCostaRica = this.generateJugadores("Costa Rica");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion CostaRica = new Seleccion("Costa Rica", "Roja", "no se", jugadoresCostaRica);		
-		this.createSeleccionConJugadores(CostaRica);		
+		Seleccion costaRica = new Seleccion("Costa Rica", "Roja", "no se", jugadoresCostaRica);		
+		this.createSeleccionConJugadores(costaRica);		
 		// agrega la seleccion a la lista de selecciones
-		selecciones.add(CostaRica);
+		selecciones.add(costaRica);
 		
 		
 		// crea la lista de jugadores de Belgium
 		Set<Jugador> jugadoresBelgium = this.generateJugadores("Belgium");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion Belgium = new Seleccion("Belgium", "Roja", "no se", jugadoresBelgium);		
-		this.createSeleccionConJugadores(Belgium);		
+		Seleccion belgium = new Seleccion("Belgium", "Roja", "no se", jugadoresBelgium);		
+		this.createSeleccionConJugadores(belgium);		
 		// agrega la seleccion a la lista de selecciones
-		selecciones.add(Belgium);
+		selecciones.add(belgium);
 				
 		
 		// crea la lista de jugadores de Croatia
 		Set<Jugador> jugadoresCroatia = this.generateJugadores("Croatia");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion Croatia = new Seleccion("Croatia", "Blanca con rojo", "no se", jugadoresCroatia);		
-		this.createSeleccionConJugadores(Croatia);		
+		Seleccion croatia = new Seleccion("Croatia", "Blanca con rojo", "no se", jugadoresCroatia);		
+		this.createSeleccionConJugadores(croatia);		
 		// agrega la seleccion a la lista de selecciones
-		selecciones.add(Croatia);
+		selecciones.add(croatia);
 		
 		
 		// crea la lista de jugadores de Moroco
 		Set<Jugador> jugadoresMoroco = this.generateJugadores("Moroco");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion Moroco = new Seleccion("Moroco", "Roja", "no se", jugadoresMoroco);		
-		this.createSeleccionConJugadores(Moroco);		
+		Seleccion moroco = new Seleccion("Moroco", "Roja", "no se", jugadoresMoroco);		
+		this.createSeleccionConJugadores(moroco);		
 		// agrega la seleccion a la lista de selecciones
-		selecciones.add(Moroco);
+		selecciones.add(moroco);
 		
 		
 		// crea la lista de jugadores de Canada
 		Set<Jugador> jugadoresCanada = this.generateJugadores("Canada");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion Canada = new Seleccion("Canada", "Roja", "no se", jugadoresCanada);		
-		this.createSeleccionConJugadores(Canada);		
+		Seleccion canada = new Seleccion("Canada", "Roja", "no se", jugadoresCanada);		
+		this.createSeleccionConJugadores(canada);		
 		// agrega la seleccion a la lista de selecciones
-		selecciones.add(Canada);
+		selecciones.add(canada);
 		
 		
 		// crea la lista de jugadores de Brazil
 		Set<Jugador> jugadoresBrazil = this.generateJugadores("Brazil");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion Brazil = new Seleccion("Brazil", "Amarilla", "no se", jugadoresBrazil);		
-		this.createSeleccionConJugadores(Brazil);		
+		Seleccion brazil = new Seleccion("Brazil", "Amarilla", "no se", jugadoresBrazil);		
+		this.createSeleccionConJugadores(brazil);		
 		// agrega la seleccion a la lista de selecciones
-		selecciones.add(Brazil);
+		selecciones.add(brazil);
 		
 		
 		// crea la lista de jugadores de Switzerland
 		Set<Jugador> jugadoresSwitzerland = this.generateJugadores("Switzerland");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion Switzerland = new Seleccion("Switzerland", "Roja", "no se", jugadoresSwitzerland);		
-		this.createSeleccionConJugadores(Switzerland);		
+		Seleccion switzerland = new Seleccion("Switzerland", "Roja", "no se", jugadoresSwitzerland);		
+		this.createSeleccionConJugadores(switzerland);		
 		// agrega la seleccion a la lista de selecciones
-		selecciones.add(Switzerland);
+		selecciones.add(switzerland);
 		
 		
 		// crea la lista de jugadores de Serbia
 		Set<Jugador> jugadoresSerbia = this.generateJugadores("Serbia");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion Serbia = new Seleccion("Serbia", "Roja", "no se", jugadoresSerbia);		
-		this.createSeleccionConJugadores(Serbia);		
+		Seleccion serbia = new Seleccion("Serbia", "Roja", "no se", jugadoresSerbia);		
+		this.createSeleccionConJugadores(serbia);		
 		// agrega la seleccion a la lista de selecciones
-		selecciones.add(Serbia);
+		selecciones.add(serbia);
 		
 		
 		// crea la lista de jugadores de Cameroon
 		Set<Jugador> jugadoresCameroon = this.generateJugadores("Cameroon");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion Cameroon = new Seleccion("Cameroon", "Verde", "no se", jugadoresCameroon);		
-		this.createSeleccionConJugadores(Cameroon);		
+		Seleccion cameroon = new Seleccion("Cameroon", "Verde", "no se", jugadoresCameroon);		
+		this.createSeleccionConJugadores(cameroon);		
 		// agrega la seleccion a la lista de selecciones
-		selecciones.add(Cameroon);
+		selecciones.add(cameroon);
 		
 		
 		// crea la lista de jugadores de Portugal
 		Set<Jugador> jugadoresPortugal = this.generateJugadores("Portugal");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion Portugal = new Seleccion("Portugal", "Roja", "no se", jugadoresPortugal);		
-		this.createSeleccionConJugadores(Portugal);		
+		Seleccion portugal = new Seleccion("Portugal", "Roja", "no se", jugadoresPortugal);		
+		this.createSeleccionConJugadores(portugal);		
 		// agrega la seleccion a la lista de selecciones
-		selecciones.add(Portugal);
+		selecciones.add(portugal);
 		
 		
 		// crea la lista de jugadores de Uruguay
 		Set<Jugador> jugadoresUruguay = this.generateJugadores("Uruguay");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion Uruguay = new Seleccion("Uruguay", "Celeste", "no se", jugadoresUruguay);		
-		this.createSeleccionConJugadores(Uruguay);		
+		Seleccion uruguay = new Seleccion("Uruguay", "Celeste", "no se", jugadoresUruguay);		
+		this.createSeleccionConJugadores(uruguay);		
 		// agrega la seleccion a la lista de selecciones
-		selecciones.add(Uruguay);
+		selecciones.add(uruguay);
 		
 		
 		// crea la lista de jugadores de Korea
 		Set<Jugador> jugadoresKorea = this.generateJugadores("Korea");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion Korea = new Seleccion("Korea", "Roja", "no se", jugadoresKorea);		
-		this.createSeleccionConJugadores(Korea);		
+		Seleccion korea = new Seleccion("Korea", "Roja", "no se", jugadoresKorea);		
+		this.createSeleccionConJugadores(korea);		
 		// agrega la seleccion a la lista de selecciones
-		selecciones.add(Korea);
+		selecciones.add(korea);
 		
 		
 		// crea la lista de jugadores de Ghana
 		Set<Jugador> jugadoresGhana = this.generateJugadores("Ghana");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion Ghana = new Seleccion("Ghana", "blanca", "no se", jugadoresGhana);		
-		this.createSeleccionConJugadores(Ghana);		
+		Seleccion ghana = new Seleccion("Ghana", "blanca", "no se", jugadoresGhana);		
+		this.createSeleccionConJugadores(ghana);		
 		// agrega la seleccion a la lista de selecciones
-		selecciones.add(Ghana);
+		selecciones.add(ghana);
 		
 		
 		return selecciones;
@@ -570,7 +564,7 @@ public class SeleccionService {
 	
 	// generate jugadores set
 	public Set<Jugador> generateJugadores(String pais){
-		Set<Jugador> jugadores= new HashSet<Jugador>();
+		Set<Jugador> jugadores= new HashSet<>();
 		for (int i=1; i < 12; i ++) {
 			Jugador jugador = new Jugador("Jugador"+i+pais,"apellido"+i+pais,Integer.valueOf(25),Float.valueOf(75),Float.valueOf("1.77"),"Posicion",pais);
 			jugadores.add(jugador);
@@ -580,7 +574,7 @@ public class SeleccionService {
 	
 	public Partido jugarPartido(Long seleccion1Id, Long seleccion2Id) {
 		
-		if (seleccion1Id == seleccion2Id) {
+		if (seleccion1Id.equals(seleccion2Id)) {
 			Partido nuevoPartido = new Partido(null,null);
 			nuevoPartido.setResultado("Los ids no pueden ser iguales");
 			return nuevoPartido;
@@ -623,7 +617,7 @@ public class SeleccionService {
 			standingS2.incrementGanados();
 			standingS2.incrementPuntos(3);
 			standingS1.incrementPerdidos();
-		} else if (cantGoles1 == cantGoles2) {
+		} else if (cantGoles1.equals(cantGoles2)) {
 			res = "Empate " + cantGoles1.toString() + "-" + cantGoles2.toString();
 			standingS1.incrementEmpatados();
 			standingS1.incrementPuntos(1);
@@ -661,7 +655,7 @@ public class SeleccionService {
 	// para endpoint jugar partido
 	public ResponseEntity<?> jugarPartidoEndpoint(Long seleccion1Id, Long seleccion2Id) {
 		
-		if (seleccion1Id == seleccion2Id) {
+		if (seleccion1Id.equals(seleccion2Id)) {
 			return ResponseEntity
 		            .status(HttpStatus.FORBIDDEN)
 		            .body("Los ids de las selecciones no pueden ser iguales");
@@ -706,7 +700,7 @@ public class SeleccionService {
 			standingS2.incrementGanados();
 			standingS2.incrementPuntos(3);
 			standingS1.incrementPerdidos();
-		} else if (cantGoles1 == cantGoles2) {
+		} else if (cantGoles1.equals(cantGoles2)) {
 			res = "Empate " + cantGoles1.toString() + "-" + cantGoles2.toString();
 			standingS1.incrementEmpatados();
 			standingS1.incrementPuntos(1);
