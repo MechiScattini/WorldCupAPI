@@ -92,7 +92,7 @@ public class SeleccionServiceTest {
 	}
 	
 	@Test 
-	public void createSeleccionCon11JugadoresTest() {
+	public void createSeleccionCon11JugadoresTest() throws Exception {
 		// Arrange
 		Set<Jugador> jugadoresArgentina = new HashSet<Jugador>();
 		Jugador jugador1 =  new Jugador();
@@ -123,16 +123,16 @@ public class SeleccionServiceTest {
 		Mockito.doReturn(seleccion1).when(seleccionService).createSeleccion(seleccion1);
 		
 		// Act
-		String result = seleccionService.createSeleccionConJugadores(seleccion1);
+		Seleccion result = seleccionService.createSeleccionConJugadores(seleccion1);
 		
 		// Assert
 		Mockito.verify(jugadorService,Mockito.times(11)).createJugador(Mockito.any());
 		Mockito.verify(jugadorService,Mockito.times(11)).setSeleccionJugador(Mockito.any(),Mockito.any());
-		Assertions.assertEquals(result,"La seleccion: " + seleccion1.getPais() +" fue creada exitosamente");
+		Assertions.assertEquals(result,seleccion1);
 	}
 	
 	@Test 
-	public void createSeleccionSinJugadoresTest() {
+	public void createSeleccionSinJugadoresTest(){
 		// Arrange
 		Set<Jugador> jugadoresArgentina = new HashSet<Jugador>();
 		
@@ -141,12 +141,13 @@ public class SeleccionServiceTest {
 		Mockito.doReturn(seleccion1).when(seleccionService).createSeleccion(seleccion1);
 		
 		// Act
-		String result = seleccionService.createSeleccionConJugadores(seleccion1);
+		Exception thrown = assertThrows(Exception.class,
+				() -> seleccionService.createSeleccionConJugadores(seleccion1));
 		
 		// Assert
 		Mockito.verify(jugadorService,Mockito.times(0)).createJugador(Mockito.any());
 		Mockito.verify(jugadorService,Mockito.times(0)).setSeleccionJugador(Mockito.any(),Mockito.any());
-		Assertions.assertEquals(result,"Error al crear la seleccion"+ seleccion1.getPais() +", la seleccion debe tener entre 11 y 26 jugadores");
+		assertTrue(thrown.getMessage().contentEquals("Error al crear la seleccion"+ seleccion1.getPais() +", la seleccion debe tener entre 11 y 26 jugadores"));
 	}
 	
 	@Test

@@ -47,7 +47,7 @@ public class SeleccionService {
 		return seleccionRepository.findAll();
 	}
 	
-	public Seleccion getSeleccion(Long seleccionId) {
+	public Seleccion getSeleccion(Long seleccionId) throws EntityNotFoundException{
 		return seleccionRepository.findById(seleccionId).orElseThrow(()->new  EntityNotFoundException("No se encontró la seleccion con id: "+seleccionId));
 	}
 	
@@ -55,9 +55,9 @@ public class SeleccionService {
 		return seleccionRepository.findByPais(pais);
 	}
 	
-	public ResponseEntity<Standing> getSeleccionStading(Long seleccionId){
+	public Standing getSeleccionStanding(Long seleccionId) throws EntityNotFoundException{
 		Seleccion seleccion = seleccionRepository.findById(seleccionId).orElseThrow(()->new  EntityNotFoundException("No se encontró la seleccion con id: "+seleccionId));
-		return ResponseEntity.ok().body(seleccion.getStanding());
+		return seleccion.getStanding();
 	}
 
 	protected Seleccion createSeleccion(Seleccion seleccion) {
@@ -70,7 +70,7 @@ public class SeleccionService {
 		return seleccionRepository.save(seleccion);
 	}
 	
-	public String createSeleccionConJugadores(Seleccion seleccion) {
+	public Seleccion createSeleccionConJugadores(Seleccion seleccion) throws Exception{
 		
 		Set<Jugador> jugadores = seleccion.getJugadores(); 
 		
@@ -84,11 +84,10 @@ public class SeleccionService {
 			    	jugadorService.createJugador(jugador);
 			    	jugadorService.setSeleccionJugador(jugador, seleccion);
 			}
-			return "La seleccion: " + savedSeleccion.getPais() +" fue creada exitosamente";
+			return savedSeleccion;
 		} else {
-			
 			// devuelve un error, los jugadores deben ser entre 11 y 26
-			return "Error al crear la seleccion"+ seleccion.getPais() +", la seleccion debe tener entre 11 y 26 jugadores";
+			throw new Exception("Error al crear la seleccion"+ seleccion.getPais() +", la seleccion debe tener entre 11 y 26 jugadores"); 
 		}
 	}
 	
@@ -117,7 +116,7 @@ public class SeleccionService {
 	}*/
 	
 	// retorna 204 no content si puede eliminarlo, si falla devuelve 404 not found
-	public ResponseEntity<Seleccion> deleteSeleccion(Long seleccionId){
+	public void deleteSeleccion(Long seleccionId) throws Exception{
 		
 		// si no encuentra seleccion con seleccionId arroja excepcion
 		Seleccion seleccion = seleccionRepository.findById(seleccionId).orElseThrow(()->new  EntityNotFoundException("No se encontró la seleccion con id: "+seleccionId));
@@ -133,9 +132,8 @@ public class SeleccionService {
 		
 		try {
 			seleccionRepository.deleteById(seleccionId);
-			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 		} catch (Exception e) {
-			throw new EntityNotFoundException("No se encontró la seleccion con id: " + seleccionId);
+			throw new Exception("Hubo un problema al intentar eliminar la seleccion con id: " + seleccionId);
 		}
 	}
 	
@@ -274,7 +272,7 @@ public class SeleccionService {
 		}	
 	}
 	
-	public ResponseEntity<List<Seleccion>> generate32Selecciones(){
+	public List<Seleccion> generate32Selecciones() throws Exception{
 		
 		List<Seleccion> selecciones = new ArrayList<Seleccion>();
 		
@@ -283,6 +281,7 @@ public class SeleccionService {
 		// crea la seleccion con la lista de jugadores
 		Seleccion qatar = new Seleccion("Qatar", "Roja", "No se", jugadoresQatar);
 		this.createSeleccionConJugadores(qatar);
+		
 		// agrega la seleccion a la lista de selecciones
 		selecciones.add(qatar);
 		
@@ -566,7 +565,7 @@ public class SeleccionService {
 		selecciones.add(Ghana);
 		
 		
-		return ResponseEntity.status(HttpStatus.OK).body(selecciones);
+		return selecciones;
 	}
 	
 	// generate jugadores set
