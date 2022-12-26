@@ -9,8 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-//import javax.validation.Valid;
-//import javax.validation.constraints.Size;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Octavos {
@@ -19,14 +18,12 @@ public class Octavos {
 	@Column(unique=true,nullable = false)
 	private Long id;
 	
-	//@Size(min = 1, max = 40, message = "Resultado debe tener entre 1 y 40 caracteres")
+	@Size(min = 1, max = 40, message = "Resultado debe tener entre 1 y 40 caracteres")
 	private String resultado;
 	
 	@OneToMany(mappedBy="octavos")
-	//@Size(min=2, max=2, message = "Octavo must have only 2 selecciones")
-	private List<Seleccion> selecciones = new ArrayList<Seleccion>();
-	
-	public Octavos() {}
+	@Size(min=2, max=2, message = "Octavo must have only 2 selecciones")
+	private List<Seleccion> selecciones = new ArrayList<>();
 
 	public Long getId() {
 		return id;

@@ -25,7 +25,7 @@ public class FinaleController {
 	
 	// simular partidos de grupos
 	@GetMapping("/simularFinal")
-	private ResponseEntity<?> simularFinal() {
+	public ResponseEntity<?> simularFinal() {
 		return ResponseEntity.status(HttpStatus.OK).body(finalService.simularFinal());
 	}
 }

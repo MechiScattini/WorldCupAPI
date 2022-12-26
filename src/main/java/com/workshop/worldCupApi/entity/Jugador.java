@@ -8,12 +8,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-//import javax.validation.constraints.Max;
-//import javax.validation.constraints.Min;
-//import javax.validation.constraints.NotEmpty;
-//import javax.validation.constraints.NotNull;
-//import javax.validation.constraints.Positive;
-//import javax.validation.constraints.Size;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -27,33 +27,33 @@ public class Jugador {
 	@Column(unique=true,nullable = false)
 	private Long id;
 	
-	//@NotEmpty(message = "Nombre no puede estar vacío")
-	//@Size(min = 1, max = 30, message = "Nombre debe tener entre 1 y 30 caracteres")
+	@NotEmpty(message = "Nombre no puede estar vacío")
+	@Size(min = 1, max = 30, message = "Nombre debe tener entre 1 y 30 caracteres")
 	private String nombre;
 	
-	//@NotEmpty(message = "Apellido no puede estar vacío")
-	//@Size(min = 1, max = 30, message = "Apellido debe tener entre 1 y 30 caracteres")
+	@NotEmpty(message = "Apellido no puede estar vacío")
+	@Size(min = 1, max = 30, message = "Apellido debe tener entre 1 y 30 caracteres")
 	private String apellido;
 	
-	//@NotNull(message = "Edad no puede estar vacío")
-	//@Min(value = 18, message = "Edad no puede ser menor que 18")
-	//@Max(value = 36, message = "Edad no puede ser mayor que 36")
+	@NotNull(message = "Edad no puede estar vacío")
+	@Min(value = 18, message = "Edad no puede ser menor que 18")
+	@Max(value = 36, message = "Edad no puede ser mayor que 36")
 	private Integer edad;
 	
-	//@NotNull(message = "Peso no puede estar vacío")
-	//@Positive(message = "Peso debe ser positivo")
+	@NotNull(message = "Peso no puede estar vacío")
+	@Positive(message = "Peso debe ser positivo")
 	private Float peso;
 	
-	//@NotNull(message = "Altura no puede estar vacío")
-	//@Positive(message = "Altura debe ser positivo")
+	@NotNull(message = "Altura no puede estar vacío")
+	@Positive(message = "Altura debe ser positivo")
 	private Float altura;
 	
-	//@NotNull(message = "Posicion no puede estar vacío")
-	//@Size(min = 1, max = 50, message = "Posicion debe tener entre 1 y 50 caracteres")
+	@NotNull(message = "Posicion no puede estar vacío")
+	@Size(min = 1, max = 50, message = "Posicion debe tener entre 1 y 50 caracteres")
 	private String posicion;
 	
-	//@NotNull(message = "Nacionalidad no puede estar vacío")
-	//@Size(min = 1, max = 30, message = "Nacionalidad debe tener entre 1 y 30 caracteres")
+	@NotNull(message = "Nacionalidad no puede estar vacío")
+	@Size(min = 1, max = 30, message = "Nacionalidad debe tener entre 1 y 30 caracteres")
 	private String nacionalidad;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -62,17 +62,15 @@ public class Jugador {
 	private Seleccion seleccion;
 	
 	public Jugador() {}
-	
-	
 
 	public Jugador(
-			/*@NotEmpty(message = "Nombre no puede estar vacío") @Size(min = 1, max = 30, message = "Nombre debe tener entre 1 y 30 caracteres") */String nombre,
-			/*@NotEmpty(message = "Apellido no puede estar vacío") @Size(min = 1, max = 30, message = "Apellido debe tener entre 1 y 30 caracteres")*/ String apellido,
-			/*@NotNull(message = "Edad no puede estar vacío") @Min(value = 18, message = "Edad no puede ser menor que 18") @Max(value = 36, message = "Edad no puede ser mayor que 36")*/ Integer edad,
-			/*@NotNull(message = "Peso no puede estar vacío") @Positive(message = "Peso debe ser positivo")*/ Float peso,
-			/*@NotNull(message = "Altura no puede estar vacío") @Positive(message = "Altura debe ser positivo")*/ Float altura,
-			/*@NotNull(message = "Posicion no puede estar vacío") @Size(min = 1, max = 50, message = "Posicion debe tener entre 1 y 50 caracteres")*/ String posicion,
-			/*@NotNull(message = "Nacionalidad no puede estar vacío") @Size(min = 1, max = 30, message = "Nacionalidad debe tener entre 1 y 30 caracteres")*/ String nacionalidad
+			@NotEmpty(message = "Nombre no puede estar vacío") @Size(min = 1, max = 30, message = "Nombre debe tener entre 1 y 30 caracteres") String nombre,
+			@NotEmpty(message = "Apellido no puede estar vacío") @Size(min = 1, max = 30, message = "Apellido debe tener entre 1 y 30 caracteres") String apellido,
+			@NotNull(message = "Edad no puede estar vacío") @Min(value = 18, message = "Edad no puede ser menor que 18") @Max(value = 36, message = "Edad no puede ser mayor que 36") Integer edad,
+			@NotNull(message = "Peso no puede estar vacío") @Positive(message = "Peso debe ser positivo") Float peso,
+			@NotNull(message = "Altura no puede estar vacío") @Positive(message = "Altura debe ser positivo") Float altura,
+			@NotNull(message = "Posicion no puede estar vacío") @Size(min = 1, max = 50, message = "Posicion debe tener entre 1 y 50 caracteres") String posicion,
+			@NotNull(message = "Nacionalidad no puede estar vacío") @Size(min = 1, max = 30, message = "Nacionalidad debe tener entre 1 y 30 caracteres") String nacionalidad
 			) {
 		super();
 		this.nombre = nombre;

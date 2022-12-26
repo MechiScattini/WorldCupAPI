@@ -55,9 +55,9 @@ public class GroupService {
 		List<Group> groups = groupRepository.findAll();
 		for(Group group : groups) {
 			Set<Seleccion> seleccionesGroup = group.getSelecciones();
-			List<Seleccion> listSeleccionesGroup = new ArrayList<Seleccion>(seleccionesGroup);		
+			List<Seleccion> listSeleccionesGroup = new ArrayList<>(seleccionesGroup);		
 			String key = "Resultados grupo "+ group.getGroup() +": ";		
-			resultado = this.formatearResultado(resultado, listSeleccionesGroup, key);
+			this.formatearResultado(resultado, listSeleccionesGroup, key);
 		}
 		
 		return ResponseEntity.status(HttpStatus.OK).body(resultado);
@@ -70,7 +70,7 @@ public class GroupService {
 	public Iterable<Group> generateGroups() {
 		
 		// crea una lista de grupos
-		List<Group> groupList = new ArrayList<Group>();
+		List<Group> groupList = new ArrayList<>();
 		
 		// crea el grupo A
 		Group groupA = new Group("A");		
@@ -264,12 +264,12 @@ public class GroupService {
 	public ResponseEntity<?> simularFaseGrupos(){
 		
 		Map<String, ArrayList<String>> resultado = new HashMap<>();
-		List<Seleccion> listFaseGruposWinners = new ArrayList<Seleccion>();
+		List<Seleccion> listFaseGruposWinners = new ArrayList<>();
 		
 		List<Group> groups = groupRepository.findAll();
 		for(Group group : groups) {
 			Set<Seleccion> seleccionesGroup = group.getSelecciones();
-			List<Seleccion> listSeleccionesGroup = new ArrayList<Seleccion>(seleccionesGroup);
+			List<Seleccion> listSeleccionesGroup = new ArrayList<>(seleccionesGroup);
 			// simula las 6 combinaciones de partidos 
 			seleccionService.jugarPartido(listSeleccionesGroup.get(0).getId(), listSeleccionesGroup.get(1).getId());
 			seleccionService.jugarPartido(listSeleccionesGroup.get(0).getId(), listSeleccionesGroup.get(2).getId());
@@ -287,7 +287,7 @@ public class GroupService {
 			}
 			// agrega los ganadores al resultado que devuelve
 			String key = "Resultados grupo "+ group.getGroup() +": ";
-			resultado = this.formatearResultado(resultado, ganadoresGroup, key);
+			this.formatearResultado(resultado, ganadoresGroup, key);
 		}
 		
 		// genera las llaves de los octavos
@@ -301,10 +301,10 @@ public class GroupService {
 	private List<Seleccion> calcularGanadores(List<Seleccion> seleccionesGrupo){
 		
 		// crea una lista de selecciones ganadoras
-		List<Seleccion> ganadores = new ArrayList<Seleccion>();
+		List<Seleccion> ganadores = new ArrayList<>();
 		
 		// crea una lista con los standings de cada una
-		List<Standing> standings = new ArrayList<Standing>();
+		List<Standing> standings = new ArrayList<>();
 		for (Seleccion seleccion : seleccionesGrupo) {
 			standings.add(seleccion.getStanding());
 		}
@@ -334,7 +334,7 @@ public class GroupService {
 			    // if the key hasn't been used yet,
 			    // we'll create a new ArrayList<String> object, add the value
 			    // and put it in the array list with the new key
-			    list = new ArrayList<String>();
+			    list = new ArrayList<>();
 			    list.add(seleccion.getPais() + ": " + seleccion.getStanding().toString());
 			    resultado.put(key, list);
 			}	

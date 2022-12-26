@@ -9,9 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-//import javax.validation.Valid;
-//import javax.validation.constraints.Size;
-
+import javax.validation.constraints.Size;
 
 @Entity
 public class Group {
@@ -21,12 +19,12 @@ public class Group {
 	@Column(unique=true,nullable = false)
 	private Long id;
 	
-	//@Size(min = 1, max = 1, message = "Letra must be 1 character")
+	@Size(min = 1, max = 1, message = "Letra must be 1 character")
 	private String letra;
 	
 	@OneToMany(mappedBy="group")
-	//@Size(min=4, max=4, message = "Group must have only 4 selecciones")
-	private Set<Seleccion> selecciones = new HashSet<Seleccion>();
+	@Size(min=4, max=4, message = "Group must have only 4 selecciones")
+	private Set<Seleccion> selecciones = new HashSet<>();
 	
 	public Group() {}
 	
@@ -56,9 +54,9 @@ public class Group {
 
 	@Override
 	public String toString() {
-		String selec = "";
+		StringBuilder selec = new StringBuilder();
 		for (Seleccion seleccion : selecciones) {
-			selec += seleccion.getPais() + ", ";
+			selec.append(seleccion.getPais() + ", ");
 		}
 		return "Group [id=" + id + ", letra=" + letra + ", selecciones=" + selec + "]";
 	}
