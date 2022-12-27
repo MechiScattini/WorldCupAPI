@@ -1,17 +1,11 @@
 package com.workshop.worldCupApi.service;
 
-import java.net.URI;
-
-import javax.persistence.EntityNotFoundException;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.workshop.worldCupApi.entity.Partido;
 import com.workshop.worldCupApi.entity.Seleccion;
+import com.workshop.worldCupApi.exceptionss.ForbiddenException;
 import com.workshop.worldCupApi.repository.PartidoRepository;
 
 @Service
@@ -24,32 +18,22 @@ public class PartidoService {
 		return partidoRepository.findAll();
 	}
 
-	public ResponseEntity<Partido> createPartido(Partido nuevoPartido) {
-		try {
-			Partido savedPartido = partidoRepository.save(nuevoPartido);
-			URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-					.buildAndExpand(savedPartido.getId()).toUri();
-
-			return ResponseEntity.created(location).build();
-		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}
-		
+	public Partido createPartido(Partido nuevoPartido) {
+		return partidoRepository.save(nuevoPartido);		
 	}
 	
 	// desvincula una seleccion de un partido
-	public ResponseEntity<Partido> unsetSeleccionPartido(Partido partido, Seleccion seleccion){
+	public Partido unsetSeleccionPartido(Partido partido, Seleccion seleccion){
 		partido.removeSeleccion(seleccion);
-		// siempre recibe un jugador que ya está en la db, por lo tanto createJugador solo actualiza
+		// siempre recibe un partido que ya está en la db, por lo tanto createPartido solo actualiza
 		return this.createPartido(partido);
 	}
 	
-	public ResponseEntity<?> deletePartido(Long partidoId) {
+	public void deletePartido(Long partidoId) {
 		try {
 			partidoRepository.deleteById(partidoId);
-			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 		} catch (Exception e) {
-			throw new EntityNotFoundException("No se encontró el partido con id: " + partidoId);
+			throw new ForbiddenException("Hubo un problema eliminando el partido con id: " + partidoId);
 		}
 	}
 

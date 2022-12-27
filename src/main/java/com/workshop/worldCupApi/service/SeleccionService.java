@@ -563,24 +563,12 @@ public class SeleccionService {
 		standingS1.incrementJugados();
 		standingS2.incrementJugados();
 		
-		// crea el partido con los nombres de ambas selecciones
-		Partido nuevoPartido = new Partido(seleccion1,seleccion2);
-		
-		
-		// agrega las selecciones al partido
-		nuevoPartido.addSeleccion(seleccion1);
-		nuevoPartido.addSeleccion(seleccion2);
-		
 		// genera 2 numeros random
 		// nextInt is normally exclusive of the top value,
 		// so add 1 to make it inclusive
 		Integer cantGoles1 = ThreadLocalRandom.current().nextInt(0, 10 + 1);
 		Integer cantGoles2 = ThreadLocalRandom.current().nextInt(0, 10 + 1);
-		
-		// setea esos numeros random a la cantGoels del partido
-		nuevoPartido.setCantGolesS1(cantGoles1);
-		nuevoPartido.setCantGolesS2(cantGoles2);
-		
+	
 		String res; 
 		
 		// calcula el resultado dependiendo de los valores random y actualiza standings
@@ -613,11 +601,11 @@ public class SeleccionService {
 		// actualiza la diferencia de goles de cada equipo
 		standingS1.setDifGoles(standingS1.getGolesFavor()-standingS1.getGolesContra());
 		standingS2.setDifGoles(standingS2.getGolesFavor()-standingS2.getGolesContra());
+	
+		// crea el partido con todos sus atributos
+		Partido nuevoPartido = new Partido(seleccion1,seleccion2,cantGoles1,cantGoles2,res);
 		
-		// setea el resultado en el partido 
-		nuevoPartido.setResultado(res);
-		
-		// crea el partido
+		// Guarda el partido
 		partidoService.createPartido(nuevoPartido);
 		
 		return nuevoPartido;
@@ -642,24 +630,12 @@ public class SeleccionService {
 		standingS1.incrementJugados();
 		standingS2.incrementJugados();
 		
-		// crea el partido con los nombres de ambas selecciones
-		Partido nuevoPartido = new Partido(seleccion1,seleccion2);
-		
-		
-		// agrega las selecciones al partido
-		nuevoPartido.addSeleccion(seleccion1);
-		nuevoPartido.addSeleccion(seleccion2);
-		
 		// genera 2 numeros random
 		// nextInt is normally exclusive of the top value,
 		// so add 1 to make it inclusive
 		Integer cantGoles1 = ThreadLocalRandom.current().nextInt(0, 10 + 1);
 		Integer cantGoles2 = ThreadLocalRandom.current().nextInt(0, 10 + 1);
-		
-		// setea esos numeros random a la cantGoels del partido
-		nuevoPartido.setCantGolesS1(cantGoles1);
-		nuevoPartido.setCantGolesS2(cantGoles2);
-		
+			
 		// inicializa un hash de resultado
 		Map<String, String> resultado = new HashMap<>();
 		String res; 
@@ -697,13 +673,15 @@ public class SeleccionService {
 		
 		// setea el resultado en el partido y en el resultado que retorna
 		resultado.put("resultado", res);
-		nuevoPartido.setResultado(res);
 		 
 		// setea los demas valores de retorno
 		resultado.put("seleccion1", seleccion1.getPais());
 		resultado.put("goles " + seleccion1.getPais(), Integer.toString(cantGoles1));
 		resultado.put("seleccion2", seleccion2.getPais());
 		resultado.put("goles " + seleccion2.getPais(), Integer.toString(cantGoles2));
+		
+		// crea el partido con todos sus atributos
+		Partido nuevoPartido = new Partido(seleccion1,seleccion2,cantGoles1,cantGoles2,res);
 		
 		// crea el partido
 		partidoService.createPartido(nuevoPartido);
