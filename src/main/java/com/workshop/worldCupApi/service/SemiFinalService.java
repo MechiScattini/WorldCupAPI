@@ -41,12 +41,6 @@ public class SemiFinalService {
 	
 	public void generarLlaves(List<Seleccion> selecciones) {
 		
-		
-		//List<Seleccion> listSeleccionesShufleada = new ArrayList<Seleccion>();
-		
-		//listSeleccionesShufleada = this.shuffleWithCondition2(listSeleccionesShufleada, selecciones);
-		
-		
 		Collections.shuffle(selecciones);
 		
 		for(int i=0; i < selecciones.size(); i+=2) {
@@ -63,7 +57,7 @@ public class SemiFinalService {
 		Map<String, String> resultado = new HashMap<>();
 		
 		// esta lista se usaria para generar los cuartos de final
-		List<Seleccion> listSemiFinalWinners = new ArrayList<Seleccion>();
+		List<Seleccion> listSemiFinalWinners = new ArrayList<>();
 		
 		List<SemiFinal> semiFinals = semiFinalRepository.findAll();
 		

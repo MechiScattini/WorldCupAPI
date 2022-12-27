@@ -2,15 +2,12 @@ package com.workshop.worldCupApi.service;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.doThrow;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-
-import javax.persistence.EntityNotFoundException;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,7 +24,7 @@ import com.workshop.worldCupApi.entity.Seleccion;
 import com.workshop.worldCupApi.entity.Standing;
 import com.workshop.worldCupApi.repository.SeleccionRepository;
 
-public class SeleccionServiceTest {
+class SeleccionServiceTest {
 	
 	@Spy @InjectMocks
 	private SeleccionService seleccionService;
@@ -92,7 +89,7 @@ public class SeleccionServiceTest {
 	}
 	
 	@Test 
-	void createSeleccionCon11JugadoresTest() throws Exception {
+	void createSeleccionCon11JugadoresTest() {
 		// Arrange
 		Set<Jugador> jugadoresArgentina = new HashSet<Jugador>();
 		Jugador jugador1 =  new Jugador();
