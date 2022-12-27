@@ -17,7 +17,7 @@ import org.mockito.MockitoAnnotations;
 import com.workshop.worldCupApi.entity.Standing;
 import com.workshop.worldCupApi.repository.StandingRepository;
 
-public class StandingServiceTest {
+class StandingServiceTest {
 	
 	@InjectMocks
 	private StandingService standingService;
@@ -32,7 +32,7 @@ public class StandingServiceTest {
 	}
 	
 	@Test
-	public void TestCreateStanding() {
+	void TestCreateStanding() {
 		
 		Standing standing = new Standing();
 		Mockito.when(standingRepository.save(Mockito.any(Standing.class))).thenReturn(standing);
@@ -43,7 +43,7 @@ public class StandingServiceTest {
 	}
 	
 	@Test 
-	public void TestDeleteStandingWithoutError() throws Exception{
+	void TestDeleteStandingWithoutError() throws Exception{
 		
 		Standing standing = new Standing();
 		
@@ -54,7 +54,7 @@ public class StandingServiceTest {
 	}
 	
 	@Test 
-	public void TestDeleteStandingWithError() throws Exception{
+	void TestDeleteStandingWithError() throws Exception{
 		
 		Long idLong = Long.valueOf(23);
 		doThrow(new EntityNotFoundException()).when(standingRepository).deleteById(idLong);

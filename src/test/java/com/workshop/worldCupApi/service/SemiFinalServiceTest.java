@@ -128,8 +128,7 @@ class SemiFinalServiceTest {
 		
 		
 		// Assert
-		assertThat(resultado).containsValue("Argentina");
-		assertThat(resultado).containsValue("Colombia");
+		assertThat(resultado).containsValues("Argentina","Colombia");
 		
 	}
 }

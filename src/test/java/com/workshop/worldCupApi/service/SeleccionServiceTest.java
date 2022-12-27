@@ -165,9 +165,9 @@ class SeleccionServiceTest {
 		
 		Partido partidoJugado = seleccionService.jugarPartido(seleccion1.getId(), seleccion2.getId());
 		
-		Assertions.assertNotEquals(partidoJugado.getResultado(), "Los ids no pueden ser iguales");
-		Assertions.assertEquals(standing1.getJugados(), 1);
-		Assertions.assertEquals(standing2.getJugados(), 1);
+		Assertions.assertNotEquals("Los ids no pueden ser iguales", partidoJugado.getResultado());
+		Assertions.assertEquals(1, standing1.getJugados());
+		Assertions.assertEquals(1, standing2.getJugados());
 	}
 	
 	@Test
@@ -188,9 +188,9 @@ class SeleccionServiceTest {
 		
 		Partido partidoJugado = seleccionService.jugarPartido(seleccion1.getId(), seleccion2.getId());
 		
-		Assertions.assertEquals(partidoJugado.getResultado(), "Los ids no pueden ser iguales");
-		Assertions.assertEquals(standing1.getJugados(), 0);
-		Assertions.assertEquals(standing2.getJugados(), 0);
+		Assertions.assertEquals("Los ids no pueden ser iguales",partidoJugado.getResultado());
+		Assertions.assertEquals(0, standing1.getJugados());
+		Assertions.assertEquals(0, standing2.getJugados());
 	}
 
 }

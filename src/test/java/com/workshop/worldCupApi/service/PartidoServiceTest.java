@@ -1,6 +1,5 @@
 package com.workshop.worldCupApi.service;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,7 +12,7 @@ import com.workshop.worldCupApi.entity.Partido;
 import com.workshop.worldCupApi.entity.Seleccion;
 import com.workshop.worldCupApi.repository.PartidoRepository;
 
-public class PartidoServiceTest {
+class PartidoServiceTest {
 	
 	@InjectMocks
 	private PartidoService partidoService;
@@ -28,7 +27,7 @@ public class PartidoServiceTest {
 	}
 	
 	@Test
-	public void TestCreatePartido() {
+	void TestCreatePartido() {
 		// Arrange
 		Seleccion seleccion1= new Seleccion();
 		seleccion1.setPais("Argentina");
