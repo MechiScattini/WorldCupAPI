@@ -1,6 +1,10 @@
 package com.workshop.worldCupApi.controller;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,16 +22,10 @@ public class GroupController {
 	@Autowired
 	private GroupService groupService;
 	
-	/*
-	@GetMapping("/{id}")
-	public ResponseEntity<Group> getGroupById(@PathVariable("id") Long groupId){
-		return groupService.getGroup(groupId);
-	}
-	*/
-	
 	@GetMapping("/{letra}")
-	public ResponseEntity<?> getGroupByLetra(@PathVariable("letra") String letra){
-		return groupService.getGroupByLetra(letra);
+	public ResponseEntity<Group> getGroupByLetra(@PathVariable("letra") String letra){
+		Group group = groupService.getGroupByLetra(letra);
+		return ResponseEntity.ok().body(group);
 	}
 	
 	@PostMapping()
@@ -37,14 +35,16 @@ public class GroupController {
 	
 	// simular partidos de grupos
 	@GetMapping("/simularFaseGrupos")
-	private ResponseEntity<?> simularFaseGrupos() {
-		return groupService.simularFaseGrupos();
+	public ResponseEntity<Map<String, ArrayList<String>>> simularFaseGrupos() {
+		Map<String, ArrayList<String>> resultado = groupService.simularFaseGrupos();
+		return ResponseEntity.status(HttpStatus.OK).body(resultado);
 	}
 	
 	// simular partidos de grupos
 	@GetMapping("/results")
-	private ResponseEntity<?> getAllResultadosFaseGrupos() {
-		return groupService.getAllResultadosFaseGrupos();
+	public ResponseEntity<Map<String, ArrayList<String>>> getAllResultadosFaseGrupos() {
+		Map<String, ArrayList<String>> resultados = groupService.getAllResultadosFaseGrupos();
+		return ResponseEntity.status(HttpStatus.OK).body(resultados);
 	}
 	
 }

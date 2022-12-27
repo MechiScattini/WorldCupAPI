@@ -8,16 +8,14 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import javax.persistence.EntityNotFoundException;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.workshop.worldCupApi.entity.Group;
 import com.workshop.worldCupApi.entity.Seleccion;
 import com.workshop.worldCupApi.entity.Standing;
+import com.workshop.worldCupApi.exceptionss.InternalServerErrorException;
+import com.workshop.worldCupApi.exceptionss.NotFoundException;
 import com.workshop.worldCupApi.repository.GroupRepository;
 
 @Service
@@ -32,24 +30,21 @@ public class GroupService {
 	@Autowired
 	private OctavosService octavosService;
 
-	public ResponseEntity<Group> getGroup(Long groupId) {
-		Group group = groupRepository.findById(groupId).orElseThrow(()->new  EntityNotFoundException("Couldn't find group with id: " + groupId));
-		return ResponseEntity.ok().body(group);
+	public Group getGroup(Long groupId) {
+		return groupRepository.findById(groupId).orElseThrow(()->new NotFoundException("Couldn't find group with id: " + groupId));
 	}
 	
-	public ResponseEntity<?> getGroupByLetra(String letra) {
+	public Group getGroupByLetra(String letra) throws InternalServerErrorException{
 		Group group = groupRepository.findByLetra(letra);
 		if(group == null) {
-			return ResponseEntity
-		            .status(HttpStatus.INTERNAL_SERVER_ERROR)
-		            .body("Hubo un problema encontrando al grupo con letra " + letra);
+			throw new InternalServerErrorException("Hubo un problema encontrando al grupo con letra " + letra);
 		}
 		else {
-			return ResponseEntity.ok().body(group);
+			return group;
 		}
 	}
 	
-	public ResponseEntity<?> getAllResultadosFaseGrupos(){
+	public Map<String, ArrayList<String>> getAllResultadosFaseGrupos(){
 		Map<String, ArrayList<String>> resultado = new HashMap<>();
 		
 		List<Group> groups = groupRepository.findAll();
@@ -60,7 +55,7 @@ public class GroupService {
 			this.formatearResultado(resultado, listSeleccionesGroup, key);
 		}
 		
-		return ResponseEntity.status(HttpStatus.OK).body(resultado);
+		return resultado;
 	}
 	
 	private Group saveGroup(Group group) {
@@ -259,9 +254,7 @@ public class GroupService {
 		
 	}
 	
-	
-	
-	public ResponseEntity<?> simularFaseGrupos(){
+	public Map<String, ArrayList<String>> simularFaseGrupos(){
 		
 		Map<String, ArrayList<String>> resultado = new HashMap<>();
 		List<Seleccion> listFaseGruposWinners = new ArrayList<>();
@@ -293,7 +286,7 @@ public class GroupService {
 		// genera las llaves de los octavos
 		octavosService.generarLlaves(listFaseGruposWinners);
 		
-		return ResponseEntity.status(HttpStatus.OK).body(resultado);
+		return resultado;
 	}
 	
 	
