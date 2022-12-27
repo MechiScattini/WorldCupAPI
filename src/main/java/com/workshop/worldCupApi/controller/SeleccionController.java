@@ -2,10 +2,6 @@ package com.workshop.worldCupApi.controller;
 
 import java.util.List;
 
-import javax.persistence.EntityNotFoundException;
-
-//import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,26 +34,16 @@ public class SeleccionController {
 	
 	// showSeleccion endpoint
 	@GetMapping("/{id}")
-	public ResponseEntity<?> showSeleccion(@PathVariable("id") Long seleccionId){
-		try {
-			Seleccion seleccion = seleccionService.getSeleccion(seleccionId);
-			return ResponseEntity.ok().body(seleccion);			
-		}
-		catch(EntityNotFoundException e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-		}	
+	public ResponseEntity<Seleccion> showSeleccion(@PathVariable("id") Long seleccionId){
+		Seleccion seleccion = seleccionService.getSeleccion(seleccionId);
+		return ResponseEntity.ok().body(seleccion);	
 	}
 	
 	// getSeleccionStanding endpoint
 	@GetMapping("/{id}/standing")
-	public ResponseEntity<?> getSeleccionStanding(@PathVariable("id") Long seleccionId){
-		try {
-			Standing standing = seleccionService.getSeleccionStanding(seleccionId);
-			return ResponseEntity.ok().body(standing);
-		}
-		catch (EntityNotFoundException e){
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-		}
+	public ResponseEntity<Standing> getSeleccionStanding(@PathVariable("id") Long seleccionId){
+		Standing standing = seleccionService.getSeleccionStanding(seleccionId);
+		return ResponseEntity.ok().body(standing);
 	}
 	
 	// create seleccion endpoint
@@ -98,16 +84,22 @@ public class SeleccionController {
 	
 	// relaciona la seleccion con id seleccionId con el jugador con id jugadorId
 	@PostMapping("/{seleccionId}/{jugadorId}")
-	public ResponseEntity<?> addJugadorSeleccion(@PathVariable(value = "seleccionId") Long seleccionId,
+	public ResponseEntity<String> addJugadorSeleccion(@PathVariable(value = "seleccionId") Long seleccionId,
 			@PathVariable(value = "jugadorId") Long jugadorId){
-		return seleccionService.addJugadorSeleccion(seleccionId,jugadorId);
+		if(seleccionService.addJugadorSeleccion(seleccionId,jugadorId)) {
+			return ResponseEntity.ok().body("Se agregó el jugador con id: "+ jugadorId +" a la seleccion con id: "+ seleccionId +" correctamente");
+		}
+		return new ResponseEntity<>("Ocurrió un error agregando el jugador a la seleccion", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	// eliminar la relacion de la seleccion con id seleccionId con el jugador con id jugadorId
 	@DeleteMapping("/{seleccionId}/{jugadorId}")
-	public ResponseEntity<?> deleteJugadorSeleccion(@PathVariable(value = "seleccionId") Long seleccionId,
+	public ResponseEntity<String> deleteJugadorSeleccion(@PathVariable(value = "seleccionId") Long seleccionId,
 			@PathVariable(value = "jugadorId") Long jugadorId){
-		return seleccionService.deleteJugadorSeleccion(seleccionId,jugadorId);
+		if(seleccionService.deleteJugadorSeleccion(seleccionId,jugadorId)) {
+			return ResponseEntity.ok().body("Se eliminó el jugador con id: "+ jugadorId +" de la seleccion con id: "+ seleccionId +" correctamente");
+		}
+		return new ResponseEntity<>("Ocurrió un error eliminando el jugador a la seleccion", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	@PostMapping("/jugarPartido/{seleccion1id}/{seleccion2id}")

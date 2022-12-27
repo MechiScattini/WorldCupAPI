@@ -51,7 +51,7 @@ public class SeleccionServiceTest {
 	}
 	
 	@Test
-	public void getSeleccionesTest(){
+	void getSeleccionesTest(){
 		// Arrange
 		Set<Jugador> jugadoresArgentina = new HashSet<Jugador>();
 		Seleccion seleccion1 = new Seleccion("Argentina", "celeste", "violeta", jugadoresArgentina);
@@ -75,7 +75,7 @@ public class SeleccionServiceTest {
 	}
 	
 	@Test
-	public void getSeleccionTest() {
+	void getSeleccionTest() {
 		// Arrange
 		Set<Jugador> jugadoresArgentina = new HashSet<Jugador>();
 		Seleccion seleccion1 = new Seleccion("Argentina", "celeste", "violeta", jugadoresArgentina);
@@ -92,7 +92,7 @@ public class SeleccionServiceTest {
 	}
 	
 	@Test 
-	public void createSeleccionCon11JugadoresTest() throws Exception {
+	void createSeleccionCon11JugadoresTest() throws Exception {
 		// Arrange
 		Set<Jugador> jugadoresArgentina = new HashSet<Jugador>();
 		Jugador jugador1 =  new Jugador();
@@ -132,7 +132,7 @@ public class SeleccionServiceTest {
 	}
 	
 	@Test 
-	public void createSeleccionSinJugadoresTest(){
+	void createSeleccionSinJugadoresTest(){
 		// Arrange
 		Set<Jugador> jugadoresArgentina = new HashSet<Jugador>();
 		
@@ -151,7 +151,7 @@ public class SeleccionServiceTest {
 	}
 	
 	@Test
-	public void jugarPartidoExitosoTest() {
+	void jugarPartidoExitosoTest() {
 		Set<Jugador> jugadores = new HashSet<Jugador>();
 		Standing standing1 = new Standing();
 		Seleccion seleccion1 = new Seleccion("Argentina", "celeste", "violeta", jugadores);
@@ -174,7 +174,7 @@ public class SeleccionServiceTest {
 	}
 	
 	@Test
-	public void jugarPartidoIdsIgualesTest() {
+	void jugarPartidoIdsIgualesTest() {
 		Set<Jugador> jugadores = new HashSet<Jugador>();
 		Standing standing1 = new Standing();
 		Seleccion seleccion1 = new Seleccion("Argentina", "celeste", "violeta", jugadores);
