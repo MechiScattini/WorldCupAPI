@@ -20,7 +20,7 @@ import com.workshop.worldCupApi.entity.Seleccion;
 import com.workshop.worldCupApi.entity.SemiFinal;
 import com.workshop.worldCupApi.repository.SemiFinalRepository;
 
-public class SemiFinalServiceTest {
+class SemiFinalServiceTest {
 	
 	@InjectMocks
 	private SemiFinalService semiFinalService;
@@ -41,7 +41,7 @@ public class SemiFinalServiceTest {
 	}
 	
 	@Test
-	public void getSemiFinalsTest() {
+	void getSemiFinalsTest() {
 		List<SemiFinal> semiFinals = new ArrayList<SemiFinal>();
 		SemiFinal semi1 = new SemiFinal();
 		SemiFinal semi2 = new SemiFinal();
@@ -60,7 +60,7 @@ public class SemiFinalServiceTest {
 	// no args case
 	// more args case
 	@Test 
-	public void createSemiFinalTest() {
+	void createSemiFinalTest() {
 		Seleccion seleccion1= new Seleccion();
 		seleccion1.setPais("Argentina");
 		seleccion1.setColorCamisetaSuplente("sadf");
@@ -86,7 +86,7 @@ public class SemiFinalServiceTest {
 	}
 	
 	@Test
-	public void simularSemiTest() {
+	void simularSemiTest() {
 		
 		// Arrange
 		Seleccion seleccion1= new Seleccion();

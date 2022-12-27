@@ -50,6 +50,11 @@ public class Partido {
 	private Set<Seleccion> selecciones = new HashSet<>(); 
 	
 	public Partido() {}
+	
+	public Partido(Seleccion seleccion1, Seleccion seleccion2) {
+		this.selecciones.add(seleccion1);
+		this.selecciones.add(seleccion2);
+	}
 
 	public Partido(Seleccion seleccion1, Seleccion seleccion2, Integer cantGolesS1, Integer cantGolesS2, String resultado) {
 		this.selecciones.add(seleccion1);

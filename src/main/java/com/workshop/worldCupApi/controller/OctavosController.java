@@ -1,5 +1,7 @@
 package com.workshop.worldCupApi.controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +27,7 @@ public class OctavosController {
 	
 	// simular partidos de grupos
 	@GetMapping("/simularOctavos")
-	private ResponseEntity<?> simularOctavos() {
+	public ResponseEntity<Map<String, String>> simularOctavos() {
 		return ResponseEntity.status(HttpStatus.OK).body(octavosService.simularOctavos());
 	}
 
