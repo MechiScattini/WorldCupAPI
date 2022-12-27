@@ -8,8 +8,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
-import javax.persistence.EntityNotFoundException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -23,7 +21,8 @@ import com.workshop.worldCupApi.entity.Quarter;
 import com.workshop.worldCupApi.entity.Seleccion;
 import com.workshop.worldCupApi.entity.SemiFinal;
 import com.workshop.worldCupApi.entity.Standing;
-import com.workshop.worldCupApi.exceptionss.SeleccionForbiddenException;
+import com.workshop.worldCupApi.exceptionss.ForbiddenException;
+import com.workshop.worldCupApi.exceptionss.NotFoundException;
 import com.workshop.worldCupApi.repository.SeleccionRepository;
 
 
@@ -49,15 +48,15 @@ public class SeleccionService {
 		return seleccionRepository.findAll();
 	}
 	
-	public Seleccion getSeleccion(Long seleccionId) throws EntityNotFoundException{
-		return seleccionRepository.findById(seleccionId).orElseThrow(()->new  EntityNotFoundException("No se encontró la seleccion con id: " + seleccionId));
+	public Seleccion getSeleccion(Long seleccionId) throws NotFoundException{
+		return seleccionRepository.findById(seleccionId).orElseThrow(()->new  NotFoundException("No se encontró la seleccion con id: " + seleccionId));
 	}
 	
 	public List<Seleccion> getByName(String pais) {
 		return seleccionRepository.findByPais(pais);
 	}
 	
-	public Standing getSeleccionStanding(Long seleccionId) throws EntityNotFoundException{
+	public Standing getSeleccionStanding(Long seleccionId) throws NotFoundException{
 		Seleccion seleccion = this.getSeleccion(seleccionId);
 		return seleccion.getStanding();
 	}
@@ -72,7 +71,7 @@ public class SeleccionService {
 		return seleccionRepository.save(seleccion);
 	}
 	
-	public Seleccion createSeleccionConJugadores(Seleccion seleccion) throws SeleccionForbiddenException{
+	public Seleccion createSeleccionConJugadores(Seleccion seleccion) throws ForbiddenException{
 		
 		Set<Jugador> jugadores = seleccion.getJugadores(); 
 		
@@ -89,12 +88,12 @@ public class SeleccionService {
 			return savedSeleccion;
 		} else {
 			// devuelve un error, los jugadores deben ser entre 11 y 26
-			throw new SeleccionForbiddenException("Error al crear la seleccion"+ seleccion.getPais() +", la seleccion debe tener entre 11 y 26 jugadores"); 
+			throw new ForbiddenException("Error al crear la seleccion"+ seleccion.getPais() +", la seleccion debe tener entre 11 y 26 jugadores"); 
 		}
 	}
 	
 	// retorna 204 no content si puede eliminarlo, si falla devuelve 404 not found
-	public void deleteSeleccion(Long seleccionId) throws SeleccionForbiddenException{
+	public void deleteSeleccion(Long seleccionId) throws ForbiddenException{
 		
 		// si no encuentra seleccion con seleccionId arroja excepcion
 		Seleccion seleccion = this.getSeleccion(seleccionId);
@@ -111,7 +110,7 @@ public class SeleccionService {
 		try {
 			seleccionRepository.deleteById(seleccionId);
 		} catch (Exception e) {
-			throw new SeleccionForbiddenException("Hubo un problema al intentar eliminar la seleccion con id: " + seleccionId);
+			throw new ForbiddenException("Hubo un problema al intentar eliminar la seleccion con id: " + seleccionId);
 		}
 	}
 	
@@ -147,7 +146,7 @@ public class SeleccionService {
 	
 	
 	// relaciona la seleccion con id seleccionId con el jugador con id jugadorId
-	public boolean addJugadorSeleccion(Long seleccionId, Long jugadorId) throws SeleccionForbiddenException{
+	public boolean addJugadorSeleccion(Long seleccionId, Long jugadorId) throws ForbiddenException{
 		// si no encuentra seleccion con seleccionId arroja excepcion
 		Seleccion seleccion = this.getSeleccion(seleccionId);
 		// se fija que no se pase del limite de jugadores por seleccion
@@ -159,12 +158,12 @@ public class SeleccionService {
 			return true;
 		}else {
 			// devuelve un error de que no se puede mas de 26 jugadores
-			throw new SeleccionForbiddenException("La seleccion debe tener como maximo 26 jugadores");
+			throw new ForbiddenException("La seleccion debe tener como maximo 26 jugadores");
 		}
 	}
 	
 	// eliminar la relacion de la seleccion con id seleccionId con el jugador con id jugadorId
-	public boolean deleteJugadorSeleccion(Long seleccionId, Long jugadorId) throws SeleccionForbiddenException{
+	public boolean deleteJugadorSeleccion(Long seleccionId, Long jugadorId) throws ForbiddenException{
 		// si no encuentra seleccion con seleccionId arroja excepcion
 		Seleccion seleccion = this.getSeleccion(seleccionId);
 		// se fija que no se pase del limite minimo de jugadores por seleccion
@@ -176,7 +175,7 @@ public class SeleccionService {
 			return true;
 		}else {
 			// devuelve un error de que no se puede menos de 11 jugadores
-			throw new SeleccionForbiddenException("No se puede eliminar al jugador de la seleccion, al menos debe tener 11 jugadores");
+			throw new ForbiddenException("No se puede eliminar al jugador de la seleccion, al menos debe tener 11 jugadores");
 		}
 	}
 	
@@ -241,7 +240,7 @@ public class SeleccionService {
 		}	
 	}
 	
-	public List<Seleccion> generate32Selecciones() throws SeleccionForbiddenException{
+	public List<Seleccion> generate32Selecciones() throws ForbiddenException{
 		
 		List<Seleccion> selecciones = new ArrayList<>();
 		
@@ -547,10 +546,10 @@ public class SeleccionService {
 		return jugadores;
 	}
 	
-	public Partido jugarPartido(Long seleccion1Id, Long seleccion2Id) throws SeleccionForbiddenException{
+	public Partido jugarPartido(Long seleccion1Id, Long seleccion2Id) throws ForbiddenException{
 		
 		if (seleccion1Id.equals(seleccion2Id)) {
-			throw new SeleccionForbiddenException("Los ids no pueden ser iguales");
+			throw new ForbiddenException("Los ids no pueden ser iguales");
 		}
 		// se fija si las selecciones existen, si alguna no existe tira excepcion
 		Seleccion seleccion1 = this.getSeleccion(seleccion1Id);
@@ -626,10 +625,10 @@ public class SeleccionService {
 	}
 
 	// para endpoint jugar partido
-	public Map<String, String> jugarPartidoEndpoint(Long seleccion1Id, Long seleccion2Id) throws SeleccionForbiddenException{
+	public Map<String, String> jugarPartidoEndpoint(Long seleccion1Id, Long seleccion2Id) throws ForbiddenException{
 		
 		if (seleccion1Id.equals(seleccion2Id)) {
-			throw new SeleccionForbiddenException("Los ids no pueden ser iguales");
+			throw new ForbiddenException("Los ids no pueden ser iguales");
 		}
 		// se fija si las selecciones existen, si alguna no existe tira excepcion
 		Seleccion seleccion1 = this.getSeleccion(seleccion1Id);

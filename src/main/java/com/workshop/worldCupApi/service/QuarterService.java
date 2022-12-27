@@ -40,13 +40,7 @@ public class QuarterService {
 	}
 	
 	public void generarLlaves(List<Seleccion> selecciones) {
-		
-		
-		//List<Seleccion> listSeleccionesShufleada = new ArrayList<Seleccion>();
-		
-		//listSeleccionesShufleada = this.shuffleWithCondition2(listSeleccionesShufleada, selecciones);
-		
-		
+			
 		Collections.shuffle(selecciones);
 		
 		for(int i=0; i < selecciones.size(); i+=2) {
@@ -63,7 +57,7 @@ public class QuarterService {
 		Map<String, String> resultado = new HashMap<>();
 		
 		// esta lista se usaria para generar los cuartos de final
-		List<Seleccion> listQuartersWinners = new ArrayList<Seleccion>();
+		List<Seleccion> listQuartersWinners = new ArrayList<>();
 		
 		List<Quarter> quarters = quarterRepository.findAll();
 		

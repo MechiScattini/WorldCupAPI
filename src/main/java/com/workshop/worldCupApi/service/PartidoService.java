@@ -23,7 +23,6 @@ public class PartidoService {
 	public Iterable<Partido> getPartidos() {
 		return partidoRepository.findAll();
 	}
-	
 
 	public ResponseEntity<Partido> createPartido(Partido nuevoPartido) {
 		try {

@@ -49,38 +49,23 @@ public class SeleccionController {
 	
 	// create seleccion endpoint
 	@PostMapping("/list")
-	public ResponseEntity<?> createSeleccion(@RequestBody Seleccion seleccion){
-		try {
-			Seleccion nuevaSeleccion = seleccionService.createSeleccionConJugadores(seleccion);
-			return ResponseEntity.ok().body(nuevaSeleccion);
-		}
-		catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-		}
+	public ResponseEntity<Seleccion> createSeleccion(@RequestBody Seleccion seleccion){
+		Seleccion nuevaSeleccion = seleccionService.createSeleccionConJugadores(seleccion);
+		return ResponseEntity.ok().body(nuevaSeleccion);
 	}
 	
 	// generate 32 seleccion endpoint
 	@PostMapping()
-	public ResponseEntity<?> generate32Selecciones(){
-		try {
-			List<Seleccion> selecciones = seleccionService.generate32Selecciones();
-			return ResponseEntity.ok().body(selecciones);
-		}
-		catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-		}
+	public ResponseEntity<List<Seleccion>> generate32Selecciones(){
+		List<Seleccion> selecciones = seleccionService.generate32Selecciones();
+		return ResponseEntity.ok().body(selecciones);
 	}
 	
 	// delete seleccion endpoint
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> destroySeleccion(@PathVariable("id") Long seleccionId){
-		try {
-			seleccionService.deleteSeleccion(seleccionId);
-			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-		}
-		catch(Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
-		}
+		seleccionService.deleteSeleccion(seleccionId);
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
 	
 	// relaciona la seleccion con id seleccionId con el jugador con id jugadorId
@@ -104,7 +89,7 @@ public class SeleccionController {
 	}
 	
 	@PostMapping("/jugarPartido/{seleccion1id}/{seleccion2id}")
-	public ResponseEntity<?> jugarPartido(@PathVariable("seleccion1id") Long seleccion1Id, @PathVariable("seleccion2id") Long seleccion2Id) {
+	public ResponseEntity<Map<String, String>> jugarPartido(@PathVariable("seleccion1id") Long seleccion1Id, @PathVariable("seleccion2id") Long seleccion2Id) {
 		Map<String, String> resultado = seleccionService.jugarPartidoEndpoint(seleccion1Id, seleccion2Id);
 		return ResponseEntity.status(HttpStatus.OK).body(resultado);
 	}
