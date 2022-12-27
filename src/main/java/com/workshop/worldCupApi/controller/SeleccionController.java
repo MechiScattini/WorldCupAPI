@@ -1,6 +1,7 @@
 package com.workshop.worldCupApi.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -104,7 +105,8 @@ public class SeleccionController {
 	
 	@PostMapping("/jugarPartido/{seleccion1id}/{seleccion2id}")
 	public ResponseEntity<?> jugarPartido(@PathVariable("seleccion1id") Long seleccion1Id, @PathVariable("seleccion2id") Long seleccion2Id) {
-		return seleccionService.jugarPartidoEndpoint(seleccion1Id, seleccion2Id);
+		Map<String, String> resultado = seleccionService.jugarPartidoEndpoint(seleccion1Id, seleccion2Id);
+		return ResponseEntity.status(HttpStatus.OK).body(resultado);
 	}
 	
 }

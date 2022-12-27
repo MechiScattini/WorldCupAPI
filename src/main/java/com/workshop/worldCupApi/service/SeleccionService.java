@@ -11,7 +11,6 @@ import java.util.concurrent.ThreadLocalRandom;
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +41,9 @@ public class SeleccionService {
 
 	@Autowired
 	private PartidoService partidoService;
+	static final String COLOR_CAMISETA_UNDEFINED = "No se";
+	static final String COLOR_CAMISETA_BLANCA = "Blanca";
+	static final String COLOR_CAMISETA_AMARILLA = "Amarilla";
 	
 	public Iterable<Seleccion> getSelecciones() {
 		return seleccionRepository.findAll();
@@ -239,16 +241,14 @@ public class SeleccionService {
 		}	
 	}
 	
-	static final String COLOR_CAMISETA_SUPLENTE = "No se";
-	
-	public List<Seleccion> generate32Selecciones() throws Exception{
+	public List<Seleccion> generate32Selecciones() throws SeleccionForbiddenException{
 		
 		List<Seleccion> selecciones = new ArrayList<>();
 		
 		// crea la lista de jugadores de Qatar
 		Set<Jugador> jugadoresQatar = this.generateJugadores("Qatar");
 		// crea la seleccion con la lista de jugadores
-		Seleccion qatar = new Seleccion("Qatar", "Roja", COLOR_CAMISETA_SUPLENTE, jugadoresQatar);
+		Seleccion qatar = new Seleccion("Qatar", "Roja", COLOR_CAMISETA_UNDEFINED, jugadoresQatar);
 		this.createSeleccionConJugadores(qatar);
 		
 		// agrega la seleccion a la lista de selecciones
@@ -258,7 +258,7 @@ public class SeleccionService {
 		// crea la lista de jugadores de Ecuador
 		Set<Jugador> jugadoresEcuador = this.generateJugadores("Ecuador");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion ecuador = new Seleccion("Ecuador", "Amarilla", COLOR_CAMISETA_SUPLENTE, jugadoresEcuador);		
+		Seleccion ecuador = new Seleccion("Ecuador", COLOR_CAMISETA_AMARILLA, COLOR_CAMISETA_UNDEFINED, jugadoresEcuador);		
 		this.createSeleccionConJugadores(ecuador);		
 		// agrega la seleccion a la lista de selecciones
 		selecciones.add(ecuador);
@@ -267,7 +267,7 @@ public class SeleccionService {
 		// crea la lista de jugadores de Senegal		
 		Set<Jugador> jugadoresSenegal = this.generateJugadores("Senegal");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion senegal = new Seleccion("Senegal", "Blanca", COLOR_CAMISETA_SUPLENTE, jugadoresSenegal);		
+		Seleccion senegal = new Seleccion("Senegal", COLOR_CAMISETA_BLANCA, COLOR_CAMISETA_UNDEFINED, jugadoresSenegal);		
 		this.createSeleccionConJugadores(senegal);		
 		// agrega la seleccion a la lista de selecciones
 		selecciones.add(senegal);
@@ -276,7 +276,7 @@ public class SeleccionService {
 		// crea la lista de jugadores de Netherlands		
 		Set<Jugador> jugadoresNetherlands = this.generateJugadores("Netherlands");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion netherlands = new Seleccion("Netherlands", "Naranja", COLOR_CAMISETA_SUPLENTE, jugadoresNetherlands);		
+		Seleccion netherlands = new Seleccion("Netherlands", "Naranja", COLOR_CAMISETA_UNDEFINED, jugadoresNetherlands);		
 		this.createSeleccionConJugadores(netherlands);		
 		// agrega la seleccion a la lista de selecciones
 		selecciones.add(netherlands);
@@ -285,7 +285,7 @@ public class SeleccionService {
 		// crea la lista de jugadores de England		
 		Set<Jugador> jugadoresEngland = this.generateJugadores("England");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion england = new Seleccion("England", "Blanca", COLOR_CAMISETA_SUPLENTE, jugadoresEngland);		
+		Seleccion england = new Seleccion("England", COLOR_CAMISETA_BLANCA, COLOR_CAMISETA_UNDEFINED, jugadoresEngland);		
 		this.createSeleccionConJugadores(england);		
 		// agrega la seleccion a la lista de selecciones
 		selecciones.add(england);
@@ -294,7 +294,7 @@ public class SeleccionService {
 		// crea la lista de jugadores de USA		
 		Set<Jugador> jugadoresUSA = this.generateJugadores("USA");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion usa = new Seleccion("USA", "Blanca", COLOR_CAMISETA_SUPLENTE, jugadoresUSA);		
+		Seleccion usa = new Seleccion("USA", COLOR_CAMISETA_BLANCA, COLOR_CAMISETA_UNDEFINED, jugadoresUSA);		
 		this.createSeleccionConJugadores(usa);		
 		// agrega la seleccion a la lista de selecciones
 		selecciones.add(usa);
@@ -303,7 +303,7 @@ public class SeleccionService {
 		// crea la lista de jugadores de Iran		
 		Set<Jugador> jugadoresIran = this.generateJugadores("Iran");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion iran = new Seleccion("Iran", "Roja", COLOR_CAMISETA_SUPLENTE, jugadoresIran);		
+		Seleccion iran = new Seleccion("Iran", "Roja", COLOR_CAMISETA_UNDEFINED, jugadoresIran);		
 		this.createSeleccionConJugadores(iran);		
 		// agrega la seleccion a la lista de selecciones
 		selecciones.add(iran);
@@ -312,7 +312,7 @@ public class SeleccionService {
 		// crea la lista de jugadores de Wales		
 		Set<Jugador> jugadoresWales = this.generateJugadores("Wales");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion wales = new Seleccion("Wales", "Roja", COLOR_CAMISETA_SUPLENTE, jugadoresWales);		
+		Seleccion wales = new Seleccion("Wales", "Roja", COLOR_CAMISETA_UNDEFINED, jugadoresWales);		
 		this.createSeleccionConJugadores(wales);		
 		// agrega la seleccion a la lista de selecciones
 		selecciones.add(wales);
@@ -330,7 +330,7 @@ public class SeleccionService {
 		// crea la lista de jugadores de Mexico		
 		Set<Jugador> jugadoresMexico = this.generateJugadores("Mexico");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion mexico = new Seleccion("Mexico", "Verde", COLOR_CAMISETA_SUPLENTE, jugadoresMexico);		
+		Seleccion mexico = new Seleccion("Mexico", "Verde", COLOR_CAMISETA_UNDEFINED, jugadoresMexico);		
 		this.createSeleccionConJugadores(mexico);		
 		// agrega la seleccion a la lista de selecciones
 		selecciones.add(mexico);
@@ -339,7 +339,7 @@ public class SeleccionService {
 		// crea la lista de jugadores de Poland		
 		Set<Jugador> jugadoresPoland = this.generateJugadores("Poland");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion poland = new Seleccion("Poland", "Blanca", COLOR_CAMISETA_SUPLENTE, jugadoresPoland);		
+		Seleccion poland = new Seleccion("Poland", COLOR_CAMISETA_BLANCA, COLOR_CAMISETA_UNDEFINED, jugadoresPoland);		
 		this.createSeleccionConJugadores(poland);		
 		// agrega la seleccion a la lista de selecciones
 		selecciones.add(poland);
@@ -348,7 +348,7 @@ public class SeleccionService {
 		// crea la lista de jugadores de Arabia Saudi		
 		Set<Jugador> jugadoresSaudiArabia = this.generateJugadores("Saudi Arabia");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion saudiArabia = new Seleccion("Saudi Arabia", "Blanca", COLOR_CAMISETA_SUPLENTE, jugadoresSaudiArabia);		
+		Seleccion saudiArabia = new Seleccion("Saudi Arabia", COLOR_CAMISETA_BLANCA, COLOR_CAMISETA_UNDEFINED, jugadoresSaudiArabia);		
 		this.createSeleccionConJugadores(saudiArabia);		
 		// agrega la seleccion a la lista de selecciones
 		selecciones.add(saudiArabia);
@@ -357,7 +357,7 @@ public class SeleccionService {
 		// crea la lista de jugadores de France		
 		Set<Jugador> jugadoresFrance = this.generateJugadores("France");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion france = new Seleccion("France", "Azul", COLOR_CAMISETA_SUPLENTE, jugadoresFrance);		
+		Seleccion france = new Seleccion("France", "Azul", COLOR_CAMISETA_UNDEFINED, jugadoresFrance);		
 		this.createSeleccionConJugadores(france);		
 		// agrega la seleccion a la lista de selecciones
 		selecciones.add(france);
@@ -366,7 +366,7 @@ public class SeleccionService {
 		// crea la lista de jugadores de Denmark		
 		Set<Jugador> jugadoresDenmark = this.generateJugadores("Denmark");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion denmark = new Seleccion("Denmark", "Roja", COLOR_CAMISETA_SUPLENTE, jugadoresDenmark);		
+		Seleccion denmark = new Seleccion("Denmark", "Roja", COLOR_CAMISETA_UNDEFINED, jugadoresDenmark);		
 		this.createSeleccionConJugadores(denmark);		
 		// agrega la seleccion a la lista de selecciones
 		selecciones.add(denmark);
@@ -375,7 +375,7 @@ public class SeleccionService {
 		// crea la lista de jugadores de Tunisia		
 		Set<Jugador> jugadoresTunisia = this.generateJugadores("Tunisia");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion tunisia = new Seleccion("Tunisia", "Roja", COLOR_CAMISETA_SUPLENTE, jugadoresTunisia);		
+		Seleccion tunisia = new Seleccion("Tunisia", "Roja", COLOR_CAMISETA_UNDEFINED, jugadoresTunisia);		
 		this.createSeleccionConJugadores(tunisia);		
 		// agrega la seleccion a la lista de selecciones
 		selecciones.add(tunisia);
@@ -384,7 +384,7 @@ public class SeleccionService {
 		// crea la lista de jugadores de Australia		
 		Set<Jugador> jugadoresAustralia = this.generateJugadores("Australia");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion australia = new Seleccion("Australia", "Amarilla", COLOR_CAMISETA_SUPLENTE, jugadoresAustralia);		
+		Seleccion australia = new Seleccion("Australia", COLOR_CAMISETA_AMARILLA, COLOR_CAMISETA_UNDEFINED, jugadoresAustralia);		
 		this.createSeleccionConJugadores(australia);		
 		// agrega la seleccion a la lista de selecciones
 		selecciones.add(australia);
@@ -393,7 +393,7 @@ public class SeleccionService {
 		// crea la lista de jugadores de Spain		
 		Set<Jugador> jugadoresSpain = this.generateJugadores("Spain");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion spain = new Seleccion("Spain", "Roja", COLOR_CAMISETA_SUPLENTE, jugadoresSpain);		
+		Seleccion spain = new Seleccion("Spain", "Roja", COLOR_CAMISETA_UNDEFINED, jugadoresSpain);		
 		this.createSeleccionConJugadores(spain);		
 		// agrega la seleccion a la lista de selecciones
 		selecciones.add(spain);
@@ -402,7 +402,7 @@ public class SeleccionService {
 		// crea la lista de jugadores de Germany		
 		Set<Jugador> jugadoresGermany = this.generateJugadores("Germany");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion germany = new Seleccion("Germany", "Blanca y negra", COLOR_CAMISETA_SUPLENTE, jugadoresGermany);		
+		Seleccion germany = new Seleccion("Germany", "Blanca y negra", COLOR_CAMISETA_UNDEFINED, jugadoresGermany);		
 		this.createSeleccionConJugadores(germany);		
 		// agrega la seleccion a la lista de selecciones
 		selecciones.add(germany);
@@ -411,7 +411,7 @@ public class SeleccionService {
 		// crea la lista de jugadores de Japan		
 		Set<Jugador> jugadoresJapan = this.generateJugadores("Japan");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion japan = new Seleccion("Japan", "Azul", COLOR_CAMISETA_SUPLENTE, jugadoresJapan);		
+		Seleccion japan = new Seleccion("Japan", "Azul", COLOR_CAMISETA_UNDEFINED, jugadoresJapan);		
 		this.createSeleccionConJugadores(japan);		
 		// agrega la seleccion a la lista de selecciones
 		selecciones.add(japan);
@@ -420,7 +420,7 @@ public class SeleccionService {
 		// crea la lista de jugadores de Costa Rica		
 		Set<Jugador> jugadoresCostaRica = this.generateJugadores("Costa Rica");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion costaRica = new Seleccion("Costa Rica", "Roja", COLOR_CAMISETA_SUPLENTE, jugadoresCostaRica);		
+		Seleccion costaRica = new Seleccion("Costa Rica", "Roja", COLOR_CAMISETA_UNDEFINED, jugadoresCostaRica);		
 		this.createSeleccionConJugadores(costaRica);		
 		// agrega la seleccion a la lista de selecciones
 		selecciones.add(costaRica);
@@ -429,7 +429,7 @@ public class SeleccionService {
 		// crea la lista de jugadores de Belgium
 		Set<Jugador> jugadoresBelgium = this.generateJugadores("Belgium");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion belgium = new Seleccion("Belgium", "Roja", COLOR_CAMISETA_SUPLENTE, jugadoresBelgium);		
+		Seleccion belgium = new Seleccion("Belgium", "Roja", COLOR_CAMISETA_UNDEFINED, jugadoresBelgium);		
 		this.createSeleccionConJugadores(belgium);		
 		// agrega la seleccion a la lista de selecciones
 		selecciones.add(belgium);
@@ -438,7 +438,7 @@ public class SeleccionService {
 		// crea la lista de jugadores de Croatia
 		Set<Jugador> jugadoresCroatia = this.generateJugadores("Croatia");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion croatia = new Seleccion("Croatia", "Blanca con rojo", COLOR_CAMISETA_SUPLENTE, jugadoresCroatia);		
+		Seleccion croatia = new Seleccion("Croatia", "Blanca con rojo", COLOR_CAMISETA_UNDEFINED, jugadoresCroatia);		
 		this.createSeleccionConJugadores(croatia);		
 		// agrega la seleccion a la lista de selecciones
 		selecciones.add(croatia);
@@ -447,7 +447,7 @@ public class SeleccionService {
 		// crea la lista de jugadores de Moroco
 		Set<Jugador> jugadoresMoroco = this.generateJugadores("Moroco");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion moroco = new Seleccion("Moroco", "Roja", COLOR_CAMISETA_SUPLENTE, jugadoresMoroco);		
+		Seleccion moroco = new Seleccion("Moroco", "Roja", COLOR_CAMISETA_UNDEFINED, jugadoresMoroco);		
 		this.createSeleccionConJugadores(moroco);		
 		// agrega la seleccion a la lista de selecciones
 		selecciones.add(moroco);
@@ -456,7 +456,7 @@ public class SeleccionService {
 		// crea la lista de jugadores de Canada
 		Set<Jugador> jugadoresCanada = this.generateJugadores("Canada");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion canada = new Seleccion("Canada", "Roja", COLOR_CAMISETA_SUPLENTE, jugadoresCanada);		
+		Seleccion canada = new Seleccion("Canada", "Roja", COLOR_CAMISETA_UNDEFINED, jugadoresCanada);		
 		this.createSeleccionConJugadores(canada);		
 		// agrega la seleccion a la lista de selecciones
 		selecciones.add(canada);
@@ -465,7 +465,7 @@ public class SeleccionService {
 		// crea la lista de jugadores de Brazil
 		Set<Jugador> jugadoresBrazil = this.generateJugadores("Brazil");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion brazil = new Seleccion("Brazil", "Amarilla", COLOR_CAMISETA_SUPLENTE, jugadoresBrazil);		
+		Seleccion brazil = new Seleccion("Brazil", COLOR_CAMISETA_AMARILLA, COLOR_CAMISETA_UNDEFINED, jugadoresBrazil);		
 		this.createSeleccionConJugadores(brazil);		
 		// agrega la seleccion a la lista de selecciones
 		selecciones.add(brazil);
@@ -474,7 +474,7 @@ public class SeleccionService {
 		// crea la lista de jugadores de Switzerland
 		Set<Jugador> jugadoresSwitzerland = this.generateJugadores("Switzerland");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion switzerland = new Seleccion("Switzerland", "Roja", COLOR_CAMISETA_SUPLENTE, jugadoresSwitzerland);		
+		Seleccion switzerland = new Seleccion("Switzerland", "Roja", COLOR_CAMISETA_UNDEFINED, jugadoresSwitzerland);		
 		this.createSeleccionConJugadores(switzerland);		
 		// agrega la seleccion a la lista de selecciones
 		selecciones.add(switzerland);
@@ -483,7 +483,7 @@ public class SeleccionService {
 		// crea la lista de jugadores de Serbia
 		Set<Jugador> jugadoresSerbia = this.generateJugadores("Serbia");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion serbia = new Seleccion("Serbia", "Roja", COLOR_CAMISETA_SUPLENTE, jugadoresSerbia);		
+		Seleccion serbia = new Seleccion("Serbia", "Roja", COLOR_CAMISETA_UNDEFINED, jugadoresSerbia);		
 		this.createSeleccionConJugadores(serbia);		
 		// agrega la seleccion a la lista de selecciones
 		selecciones.add(serbia);
@@ -492,7 +492,7 @@ public class SeleccionService {
 		// crea la lista de jugadores de Cameroon
 		Set<Jugador> jugadoresCameroon = this.generateJugadores("Cameroon");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion cameroon = new Seleccion("Cameroon", "Verde", COLOR_CAMISETA_SUPLENTE, jugadoresCameroon);		
+		Seleccion cameroon = new Seleccion("Cameroon", "Verde", COLOR_CAMISETA_UNDEFINED, jugadoresCameroon);		
 		this.createSeleccionConJugadores(cameroon);		
 		// agrega la seleccion a la lista de selecciones
 		selecciones.add(cameroon);
@@ -501,7 +501,7 @@ public class SeleccionService {
 		// crea la lista de jugadores de Portugal
 		Set<Jugador> jugadoresPortugal = this.generateJugadores("Portugal");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion portugal = new Seleccion("Portugal", "Roja", COLOR_CAMISETA_SUPLENTE, jugadoresPortugal);		
+		Seleccion portugal = new Seleccion("Portugal", "Roja", COLOR_CAMISETA_UNDEFINED, jugadoresPortugal);		
 		this.createSeleccionConJugadores(portugal);		
 		// agrega la seleccion a la lista de selecciones
 		selecciones.add(portugal);
@@ -510,7 +510,7 @@ public class SeleccionService {
 		// crea la lista de jugadores de Uruguay
 		Set<Jugador> jugadoresUruguay = this.generateJugadores("Uruguay");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion uruguay = new Seleccion("Uruguay", "Celeste", COLOR_CAMISETA_SUPLENTE, jugadoresUruguay);		
+		Seleccion uruguay = new Seleccion("Uruguay", "Celeste", COLOR_CAMISETA_UNDEFINED, jugadoresUruguay);		
 		this.createSeleccionConJugadores(uruguay);		
 		// agrega la seleccion a la lista de selecciones
 		selecciones.add(uruguay);
@@ -519,7 +519,7 @@ public class SeleccionService {
 		// crea la lista de jugadores de Korea
 		Set<Jugador> jugadoresKorea = this.generateJugadores("Korea");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion korea = new Seleccion("Korea", "Roja", COLOR_CAMISETA_SUPLENTE, jugadoresKorea);		
+		Seleccion korea = new Seleccion("Korea", "Roja", COLOR_CAMISETA_UNDEFINED, jugadoresKorea);		
 		this.createSeleccionConJugadores(korea);		
 		// agrega la seleccion a la lista de selecciones
 		selecciones.add(korea);
@@ -528,7 +528,7 @@ public class SeleccionService {
 		// crea la lista de jugadores de Ghana
 		Set<Jugador> jugadoresGhana = this.generateJugadores("Ghana");		
 		// crea la seleccion con la lista de jugadores
-		Seleccion ghana = new Seleccion("Ghana", "blanca", COLOR_CAMISETA_SUPLENTE, jugadoresGhana);		
+		Seleccion ghana = new Seleccion("Ghana", "blanca", COLOR_CAMISETA_UNDEFINED, jugadoresGhana);		
 		this.createSeleccionConJugadores(ghana);		
 		// agrega la seleccion a la lista de selecciones
 		selecciones.add(ghana);
@@ -547,12 +547,10 @@ public class SeleccionService {
 		return jugadores;
 	}
 	
-	public Partido jugarPartido(Long seleccion1Id, Long seleccion2Id) {
+	public Partido jugarPartido(Long seleccion1Id, Long seleccion2Id) throws SeleccionForbiddenException{
 		
 		if (seleccion1Id.equals(seleccion2Id)) {
-			Partido nuevoPartido = new Partido(null,null);
-			nuevoPartido.setResultado("Los ids no pueden ser iguales");
-			return nuevoPartido;
+			throw new SeleccionForbiddenException("Los ids no pueden ser iguales");
 		}
 		// se fija si las selecciones existen, si alguna no existe tira excepcion
 		Seleccion seleccion1 = this.getSeleccion(seleccion1Id);
@@ -628,12 +626,10 @@ public class SeleccionService {
 	}
 
 	// para endpoint jugar partido
-	public ResponseEntity<?> jugarPartidoEndpoint(Long seleccion1Id, Long seleccion2Id) {
+	public Map<String, String> jugarPartidoEndpoint(Long seleccion1Id, Long seleccion2Id) throws SeleccionForbiddenException{
 		
 		if (seleccion1Id.equals(seleccion2Id)) {
-			return ResponseEntity
-		            .status(HttpStatus.FORBIDDEN)
-		            .body("Los ids de las selecciones no pueden ser iguales");
+			throw new SeleccionForbiddenException("Los ids no pueden ser iguales");
 		}
 		// se fija si las selecciones existen, si alguna no existe tira excepcion
 		Seleccion seleccion1 = this.getSeleccion(seleccion1Id);
@@ -713,7 +709,7 @@ public class SeleccionService {
 		// crea el partido
 		partidoService.createPartido(nuevoPartido);
 		
-		return ResponseEntity.status(HttpStatus.OK).body(resultado);
+		return resultado;
 		
 	}
 
