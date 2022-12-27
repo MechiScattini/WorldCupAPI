@@ -9,7 +9,6 @@ import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.workshop.worldCupApi.entity.Finale;
@@ -152,9 +151,9 @@ public class SeleccionService {
 		// se fija que no se pase del limite de jugadores por seleccion
 		if (seleccion.getJugadores().size() < 26) {
 			// arroja excepcion si no encuentra al jugador
-			ResponseEntity<Jugador> jugador = jugadorService.getJugador(jugadorId);
+			Jugador jugador = jugadorService.getJugador(jugadorId);
 			//setea la seleccion al jugador
-			jugadorService.setSeleccionJugador(jugador.getBody(),seleccion);
+			jugadorService.setSeleccionJugador(jugador,seleccion);
 			return true;
 		}else {
 			// devuelve un error de que no se puede mas de 26 jugadores
@@ -169,9 +168,9 @@ public class SeleccionService {
 		// se fija que no se pase del limite minimo de jugadores por seleccion
 		if (seleccion.getJugadores().size() > 11) {
 			// arroja excepcion si no encuentra al jugador
-			ResponseEntity<Jugador> jugador = jugadorService.getJugador(jugadorId);
+			Jugador jugador = jugadorService.getJugador(jugadorId);
 			//setea la seleccion al jugador
-			jugadorService.unsetSeleccionJugador(jugador.getBody());
+			jugadorService.unsetSeleccionJugador(jugador);
 			return true;
 		}else {
 			// devuelve un error de que no se puede menos de 11 jugadores

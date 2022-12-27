@@ -2,9 +2,8 @@ package com.workshop.worldCupApi.controller;
 
 import java.util.List;
 
-//import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -35,25 +34,29 @@ public class JugadorController {
 	// getJugador endpoint
 	@GetMapping("/{id}")
 	public ResponseEntity<Jugador> showJugador(@PathVariable("id") Long jugadorId){
-		return jugadorService.getJugador(jugadorId);
+		Jugador jugador = jugadorService.getJugador(jugadorId); 
+		return ResponseEntity.ok().body(jugador);
 	}
 	
 	// createJugador endpoint
 	@PostMapping()
 	public ResponseEntity<Jugador> createJugador(@RequestBody Jugador jugador) {
-		return jugadorService.createJugador(jugador);
+		Jugador newJugador = jugadorService.createJugador(jugador);
+		return ResponseEntity.ok(newJugador);
 	}
 	
 	// createJugadores endpoint
 	@PostMapping("/lista")
-	public ResponseEntity<Jugador> createJugadores(@RequestBody List<Jugador> jugadores) {
-		return jugadorService.createJugadores(jugadores);
+	public ResponseEntity<String> createJugadores(@RequestBody List<Jugador> jugadores) {
+		jugadorService.createJugadores(jugadores);
+		return new ResponseEntity<>("Jugador creado exitosamente",HttpStatus.CREATED);
 	}
 	
 	// deleteJugador endpoint
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> destroyJugador(@PathVariable("id") Long jugadorId){
-		return jugadorService.deleteJugador(jugadorId);
+		jugadorService.deleteJugador(jugadorId);
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
 	
 }
