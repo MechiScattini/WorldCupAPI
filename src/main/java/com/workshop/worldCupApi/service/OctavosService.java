@@ -42,12 +42,6 @@ public class OctavosService {
 	// genera llaves de octavos aleatorias
 	public void generarLlaves(List<Seleccion> selecciones) {
 		
-		
-		//List<Seleccion> listSeleccionesShufleada = new ArrayList<Seleccion>();
-		
-		//listSeleccionesShufleada = this.shuffleWithCondition2(listSeleccionesShufleada, selecciones);
-		
-		
 		Collections.shuffle(selecciones);
 		
 		for(int i=0; i < selecciones.size(); i+=2) {
@@ -59,9 +53,9 @@ public class OctavosService {
 		
 	}
 	
-	public List<Seleccion> shuffleWithCondition2(List<Seleccion> seleccionesResult, List<Seleccion> seleccionesGiven){
+	public List<Seleccion> shuffleWithCondition2(List<Seleccion> seleccionesGiven){
 		
-		List<Seleccion> shuffleList = new ArrayList<Seleccion>();
+		List<Seleccion> shuffleList = new ArrayList<>();
 		
 		for(int i=0; i < seleccionesGiven.size(); i+=2) {
 			boolean ok = false;
@@ -97,15 +91,11 @@ public class OctavosService {
 				}
 			}
 		}
-		return null;
+		return new ArrayList<>();
 	}
 	
 	public boolean canPlayWith(Seleccion seleccion1, Seleccion seleccion2) {
-		if(seleccion1.getGroup().getGroup() == seleccion2.getGroup().getGroup()){
-			return false;
-		} else {
-			return true;
-		}
+		return seleccion1.getGroup().getGroup().equals(seleccion2.getGroup().getGroup()) ;
 	}
 	
 	// simula los partidos de octavos
@@ -113,7 +103,7 @@ public class OctavosService {
 		Map<String, String> resultado = new HashMap<>();
 		
 		// esta lista se usaria para generar los cuartos de final
-		List<Seleccion> listOctavosWinners = new ArrayList<Seleccion>();
+		List<Seleccion> listOctavosWinners = new ArrayList<>();
 		
 		List<Octavos> octavos = octavosRepository.findAll();
 		
