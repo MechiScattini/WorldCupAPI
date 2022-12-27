@@ -1,6 +1,8 @@
 package com.workshop.worldCupApi.controller;
 
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +27,7 @@ public class FinaleController {
 	
 	// simular partidos de grupos
 	@GetMapping("/simularFinal")
-	public ResponseEntity<?> simularFinal() {
+	public ResponseEntity<Map<String, String>> simularFinal() {
 		return ResponseEntity.status(HttpStatus.OK).body(finalService.simularFinal());
 	}
 }
