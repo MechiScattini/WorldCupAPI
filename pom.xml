@@ -33,6 +33,7 @@
 			<scope>runtime</scope>
 		</dependency>
 		
+		<!-- Validation and persistence dependencies -->
 		<dependency>
    			<groupId>javax.persistence</groupId>
    			<artifactId>persistence-api</artifactId>
@@ -44,10 +45,28 @@
     		<artifactId>validation-api</artifactId>
 		</dependency>
 		
+		<!-- Lombok dependencies -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<scope>provided</scope>
+		</dependency>
+		
+		<!-- Swagger dependencies -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+		<dependency>
+    		<groupId>io.springfox</groupId>
+    		<artifactId>springfox-boot-starter</artifactId>
+    		<version>3.0.0</version>
 		</dependency>
 
 		<dependency>
